@@ -1,0 +1,39 @@
+import React from "react";
+import { Button, Flex, Heading, Text } from "@chakra-ui/react";
+
+const Banner = () => {
+  return (
+    <Flex
+      direction="column"
+      align="center"
+      justify="center"
+      bg="gray.50"
+      h="350px"
+      py="50px"
+      m="25px 120px"
+      borderRadius="2xl"
+      textAlign="center"
+    >
+      <Heading fontSize="40px" mb="10px">
+        Reduce, Reuse, and Revive with <br /> ElectroRecyclr
+      </Heading>
+      <Text fontSize="18px" mb="5">
+        Your One-Stop Shop for Quality Second-Hand Electronics!
+      </Text>
+
+      <Button
+        textTransform="uppercase"
+        fontWeight="bold"
+        p="25px 20px"
+        color="white"
+        bg="black"
+        _hover={{ bg: "black" }}
+        _active={{ bg: "gray.700" }}
+      >
+        Start Selling
+      </Button>
+    </Flex>
+  );
+};
+
+export default Banner;
