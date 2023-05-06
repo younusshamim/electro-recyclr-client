@@ -7,10 +7,9 @@ const Banner = () => {
       direction="column"
       align="center"
       justify="center"
-      bg="gray.50"
-      h="350px"
-      py="50px"
-      m="25px 120px"
+      bg="orange.50"
+      h="400px"
+      m="40px 120px 25px 120px"
       borderRadius="2xl"
       textAlign="center"
     >

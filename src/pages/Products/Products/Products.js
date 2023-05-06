@@ -11,9 +11,9 @@ const Products = () => {
       <FilterOptions />
 
       <Grid
-        templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(5, 1fr)" }}
-        gap={{ base: 3, md: 10 }}
-        rowGap={{ base: 6, md: 10 }}
+        templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
+        gap={{ base: 3, md: 8 }}
+        rowGap={{ base: 6, md: 8 }}
         pt="5"
       >
         {ProductList.map((product, i) => (

@@ -7,16 +7,16 @@ const PostYourAdd = () => {
     <HStack
       p="10px"
       m="25px 120px"
-      bg="gray.50"
+      bg="orange.50"
       borderRadius="2xl"
       align="center"
       justify="center"
       gap="10"
     >
-      <Image src={sellImg} alt="sell image" w="300px" />
+      <Image src={sellImg} alt="sell image" w="600px" />
 
       <Flex w="50%" direction="column">
-        <Heading textTransform="uppercase" fontSize="30px" mb="5">
+        <Heading textTransform="uppercase" fontSize="30px" mb="10">
           Do you have something <br /> to sell? Post your ad.
         </Heading>
         <Button

@@ -14,23 +14,18 @@ import { Link } from "react-router-dom";
 import { commaFormat, timeDistance } from "../../../utils";
 import { MdVerifiedUser } from "react-icons/md";
 
-const Restaurant = ({ product }) => {
+const Product = ({ product }) => {
   return (
     <Link to="/product">
-      <Stack cursor="pointer" className={styles.singleRestaurant}>
-        <Box
-          className={styles.restaurantImageWrap}
-          overflow="hidden"
-          borderRadius="xl"
-        >
+      <Stack cursor="pointer" className={styles.singleProduct}>
+        <Box overflow="hidden" borderRadius="xl" p="10px" bg="gray.50">
           <Image
             w="100%"
             h="190px"
-            borderRadius="xl"
             objectFit="cover"
             src={product.thumbnail}
             alt={product.category}
-            className={styles.restaurantImage}
+            className={styles.productImage}
             transition="0.5s"
           />
         </Box>
@@ -78,4 +73,4 @@ const Restaurant = ({ product }) => {
   );
 };
 
-export default Restaurant;
+export default Product;
