@@ -13,7 +13,7 @@ import { timeDistance } from "../../../utils";
 import { MdVerifiedUser } from "react-icons/md";
 import { IoIosCall } from "react-icons/io";
 
-const Information = ({ item }) => {
+const Information = ({ item, onOpen }) => {
   return (
     <Flex direction="column" w="50%">
       <Heading fontSize="24px" mb="1">
@@ -71,6 +71,7 @@ const Information = ({ item }) => {
         _hover={{ bg: "black" }}
         _active={{ bg: "gray.700" }}
         w="fit-content"
+        onClick={onOpen}
       >
         Book Now
       </Button>

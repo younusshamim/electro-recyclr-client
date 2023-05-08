@@ -1,9 +1,12 @@
 import React from "react";
 import Images from "../Images/Images";
 import Information from "../Information/Information";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
+import BookingModal from "../BookingModal/BookingModal";
 
 const Restaurant = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const item = {
     id: 1,
     name: "Google pixel 6 pro",
@@ -35,7 +38,8 @@ const Restaurant = () => {
   return (
     <Flex p="50px 120px 25px 120px">
       <Images item={item} />
-      <Information item={item} />
+      <Information item={item} onOpen={onOpen} />
+      {isOpen && <BookingModal isOpen={isOpen} onClose={onClose} />}
     </Flex>
   );
 };

@@ -6,6 +6,9 @@ import Products from "../pages/Products/Products/Products";
 import Product from "../pages/Product/Product/Product";
 import SignUp from "../pages/SignUp/SignUp";
 import Login from "../pages/Login/Login";
+import DashboardMain from "../dashboard/layout/DashboardMain";
+import Dashboard from "../dashboard/pages/Dashboard/Dashboard";
+import MyProducts from "../dashboard/pages/MyProducts/MyProducts";
 
 const Router = createBrowserRouter([
   {
@@ -31,6 +34,20 @@ const Router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardMain />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/my-products",
+        element: <MyProducts />,
       },
     ],
   },

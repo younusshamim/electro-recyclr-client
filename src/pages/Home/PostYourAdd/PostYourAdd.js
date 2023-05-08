@@ -5,7 +5,7 @@ import sellImg from "../../../assets/sell-image.png";
 const PostYourAdd = () => {
   return (
     <HStack
-      p="10px"
+      p="50px 10px"
       m="25px 120px"
       bg="orange.50"
       borderRadius="2xl"
@@ -13,16 +13,16 @@ const PostYourAdd = () => {
       justify="center"
       gap="10"
     >
-      <Image src={sellImg} alt="sell image" w="600px" />
+      <Image src={sellImg} alt="sell image" w="500px" />
 
-      <Flex w="50%" direction="column">
-        <Heading textTransform="uppercase" fontSize="30px" mb="10">
+      <Flex direction="column">
+        <Heading textTransform="uppercase" fontSize="27px" mb="7">
           Do you have something <br /> to sell? Post your ad.
         </Heading>
         <Button
           textTransform="uppercase"
           fontWeight="bold"
-          p="25px 20px"
+          p="22px 15px"
           w="fit-content"
           color="white"
           bg="black"
