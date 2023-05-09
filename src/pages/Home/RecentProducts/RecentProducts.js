@@ -29,7 +29,7 @@ const AllRestaurant = () => {
 
       <Grid
         templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
-        gap={{ base: 3, md: 8 }}
+        columnGap="4"
         rowGap={{ base: 6, md: 8 }}
       >
         {ProductList.map((product, i) => (

@@ -1,3 +1,4 @@
 .singleProduct:hover .productImage {
-  transform: scale(1.08);
+  transform: scale(1.05);
+  border-radius: 10px;
 }
