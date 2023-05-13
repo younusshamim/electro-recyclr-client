@@ -50,7 +50,7 @@ const Sidebar = () => {
         cursor="pointer"
       >
         <Image
-          src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=2000"
+          src={user?.photoURL}
           alt=""
           rounded="50%"
           h="40px"
@@ -60,14 +60,14 @@ const Sidebar = () => {
         />
         <Flex direction="column">
           <Heading fontSize="14px" fontWeight="semibold">
-            {user.displayName.length > 20
-              ? user.displayName.slice(0, 21) + ".."
-              : user.displayName}
+            {user?.displayName?.length > 20
+              ? user?.displayName?.slice(0, 21) + ".."
+              : user?.displayName}
           </Heading>
           <Text fontSize="12px" color="gray.500">
-            {user.email.length > 27
-              ? user.email.slice(0, 28) + "..."
-              : user.email}
+            {user?.email?.length > 19
+              ? user?.email?.slice(0, 19) + "..."
+              : user?.email}
           </Text>
         </Flex>
       </HStack>

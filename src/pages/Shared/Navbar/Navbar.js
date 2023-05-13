@@ -123,7 +123,7 @@ const Navbar = () => {
       </Box>
 
       {authLoading ? (
-        <BeatLoading size={15} />
+        <BeatLoading size={12} />
       ) : user ? (
         <Menu>
           <MenuButton>
@@ -137,13 +137,13 @@ const Navbar = () => {
                 h="37px"
                 borderRadius="10px"
                 objectFit="cover"
-                src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg"
+                src={user?.photoURL}
                 alt="Dan Abramov"
                 ml="15px"
                 mr="7px"
               />
               <Text fontWeight="semibold" fontSize="15px" mr="5px">
-                {user.displayName.split(" ")[0]}
+                {user?.displayName?.split(" ")[0]}
               </Text>
               <Box>
                 <IoIosArrowDown />

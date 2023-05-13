@@ -14,6 +14,7 @@ import InputError from "../../components/InputError/InputError";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
+import GoogleLogin from "../../components/GoogleLogin/GoogleLogin";
 
 const SignUp = ({ product }) => {
   const {
@@ -22,20 +23,30 @@ const SignUp = ({ product }) => {
     reset,
     formState: { errors },
   } = useForm();
-  const { createUser, updateUser } = useAuth();
+  const {
+    user,
+    createUser,
+    updateUser,
+    loading: authLoading,
+    setLoading: setAuthLoading,
+  } = useAuth();
   const [signUpError, setSignUPError] = useState("");
   const navigate = useNavigate();
+
+  if (user) {
+    navigate("/dashboard", { replace: true });
+  }
 
   const handleSignUp = async (data) => {
     try {
       await createUser(data.email, data.password);
       await updateUser({ displayName: data.name });
       reset();
-      navigate("/dashboard", { replace: true });
       toast("User Created Successfully.");
     } catch (err) {
-      console.log(err);
       setSignUPError(err.message);
+    } finally {
+      setAuthLoading(false);
     }
   };
 
@@ -106,6 +117,7 @@ const SignUp = ({ product }) => {
           </FormControl>
 
           <Input
+            disabled={authLoading}
             value="Sign Up"
             type="submit"
             size="lg"
@@ -126,9 +138,7 @@ const SignUp = ({ product }) => {
         </Text>
       </Flex>
 
-      <Button size="lg" mt="15px" variant="outline" border="1px solid black">
-        Continue With Google
-      </Button>
+      <GoogleLogin />
     </Flex>
   );
 };

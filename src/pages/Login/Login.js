@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import InputError from "../../components/InputError/InputError";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
+import GoogleLogin from "../../components/GoogleLogin/GoogleLogin";
 
 const Login = ({ product }) => {
   const {
@@ -20,18 +21,27 @@ const Login = ({ product }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signIn, loading: authLoading } = useAuth();
+  const {
+    user,
+    signIn,
+    loading: authLoading,
+    setLoading: setAuthLoading,
+  } = useAuth();
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
 
+  if (user) {
+    navigate(targetUrl, { replace: true });
+  }
+
   const handleSignIn = async (data) => {
     try {
       await signIn(data.email, data.password);
-      navigate(targetUrl, { replace: true });
     } catch (error) {
       setLoginError(error.message);
+      setAuthLoading(false);
     }
   };
 
@@ -76,6 +86,7 @@ const Login = ({ product }) => {
           </FormControl>
 
           <Input
+            disabled={authLoading}
             value="Login"
             type="submit"
             size="lg"
@@ -96,15 +107,7 @@ const Login = ({ product }) => {
         </Text>
       </Flex>
 
-      <Button
-        disabled={authLoading}
-        size="lg"
-        mt="5"
-        variant="outline"
-        border="1px solid black"
-      >
-        Continue With Google
-      </Button>
+      <GoogleLogin />
     </Flex>
   );
 };
