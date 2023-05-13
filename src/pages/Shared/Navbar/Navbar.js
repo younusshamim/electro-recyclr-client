@@ -143,7 +143,7 @@ const Navbar = () => {
                 mr="7px"
               />
               <Text fontWeight="semibold" fontSize="15px" mr="5px">
-                Shamim
+                {user.displayName.split(" ")[0]}
               </Text>
               <Box>
                 <IoIosArrowDown />

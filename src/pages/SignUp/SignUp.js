@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import InputError from "../../components/InputError/InputError";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
 
@@ -27,17 +27,16 @@ const SignUp = ({ product }) => {
   const navigate = useNavigate();
 
   const handleSignUp = async (data) => {
-    createUser(data.email, data.password)
-      .then(updateUser({ displayName: data.name }))
-      .then(() => {
-        reset();
-        navigate("/dashboard", { replace: true });
-        toast("User Created Successfully.");
-      })
-      .catch((err) => {
-        console.log(err);
-        setSignUPError(err.message);
-      });
+    try {
+      await createUser(data.email, data.password);
+      await updateUser({ displayName: data.name });
+      reset();
+      navigate("/dashboard", { replace: true });
+      toast("User Created Successfully.");
+    } catch (err) {
+      console.log(err);
+      setSignUPError(err.message);
+    }
   };
 
   return (

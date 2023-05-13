@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import {
-  Box,
   Button,
   Flex,
   FormControl,
   FormLabel,
-  HStack,
   Heading,
-  Image,
   Input,
-  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -24,19 +20,19 @@ const Login = ({ product }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signIn } = useAuth();
+  const { signIn, loading: authLoading } = useAuth();
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
 
-  const handleSignUp = (data) => {
-    signIn(data.email, data.password)
-      .then(({ user }) => {
-        console.log(user);
-        navigate(targetUrl, { replace: true });
-      })
-      .catch((error) => setLoginError(error.message));
+  const handleSignIn = async (data) => {
+    try {
+      await signIn(data.email, data.password);
+      navigate(targetUrl, { replace: true });
+    } catch (error) {
+      setLoginError(error.message);
+    }
   };
 
   return (
@@ -45,7 +41,7 @@ const Login = ({ product }) => {
         Login
       </Heading>
 
-      <form onSubmit={handleSubmit(handleSignUp)}>
+      <form onSubmit={handleSubmit(handleSignIn)}>
         <VStack gap="1">
           <FormControl>
             <FormLabel>Email</FormLabel>
@@ -100,7 +96,13 @@ const Login = ({ product }) => {
         </Text>
       </Flex>
 
-      <Button size="lg" mt="5" variant="outline" border="1px solid black">
+      <Button
+        disabled={authLoading}
+        size="lg"
+        mt="5"
+        variant="outline"
+        border="1px solid black"
+      >
         Continue With Google
       </Button>
     </Flex>
