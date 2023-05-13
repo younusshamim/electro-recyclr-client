@@ -15,7 +15,8 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import InputError from "../../components/InputError/InputError";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthProvider";
 
 const Login = ({ product }) => {
   const {
@@ -23,8 +24,20 @@ const Login = ({ product }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { signIn } = useAuth();
+  const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
 
-  const handleSignUp = () => {};
+  const handleSignUp = (data) => {
+    signIn(data.email, data.password)
+      .then(({ user }) => {
+        console.log(user);
+        navigate(targetUrl, { replace: true });
+      })
+      .catch((error) => setLoginError(error.message));
+  };
 
   return (
     <Flex h="700px" w="96" p="7" direction="column" mx="auto" mt="7">
@@ -76,6 +89,8 @@ const Login = ({ product }) => {
             color="white"
           />
         </VStack>
+
+        {loginError && <Text color="red.600">{loginError}</Text>}
       </form>
 
       <Flex mt="5px">

@@ -18,7 +18,7 @@ const Product = ({ product }) => {
   return (
     <Link to="/product">
       <Stack cursor="pointer" className={styles.singleProduct}>
-        <Box overflow="hidden" borderRadius="xl" p="10px" bg="gray.50">
+        <Box overflow="hidden" borderRadius="xl" p="10px" bg="gray.100">
           <Image
             w="100%"
             h="190px"

@@ -14,22 +14,41 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUser } from "react-icons/ai";
+import { useAuth } from "../../../contexts/AuthProvider";
+import BeatLoading from "../../../components/Loader/BeatLoading";
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const { user, logOut, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const menuItems = [
     { id: 1, name: "Dashboard", icon: <AiOutlineUser /> },
     { id: 2, name: "Logout", icon: <FiLogOut /> },
   ];
+
+  const handleMenuClick = ({ name }) => {
+    switch (name) {
+      case "Logout":
+        logOut()
+          .then((result) => console.log(result))
+          .catch((err) => console.log(err));
+        break;
+
+      case "Dashboard":
+        navigate("/dashboard");
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <Flex
@@ -103,7 +122,9 @@ const Navbar = () => {
         </form>
       </Box>
 
-      {loggedIn ? (
+      {authLoading ? (
+        <BeatLoading size={15} />
+      ) : user ? (
         <Menu>
           <MenuButton>
             <Flex
@@ -132,7 +153,7 @@ const Navbar = () => {
 
           <MenuList color="black" minW="180px">
             {menuItems.map((menu, i) => (
-              <MenuItem key={i}>
+              <MenuItem key={i} onClick={() => handleMenuClick(menu)}>
                 <HStack py="5px" fontSize="15px">
                   <Box>{menu.icon}</Box>
                   <Text>{menu.name}</Text>
@@ -142,10 +163,12 @@ const Navbar = () => {
           </MenuList>
         </Menu>
       ) : (
-        <HStack cursor="pointer">
-          <AiOutlineUser />
-          <Text>Login</Text>
-        </HStack>
+        <Link to="/login">
+          <HStack cursor="pointer">
+            <AiOutlineUser />
+            <Text>Login</Text>
+          </HStack>
+        </Link>
       )}
     </Flex>
   );

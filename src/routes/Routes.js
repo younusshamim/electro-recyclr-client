@@ -9,6 +9,7 @@ import Login from "../pages/Login/Login";
 import DashboardMain from "../dashboard/layout/DashboardMain";
 import Dashboard from "../dashboard/pages/Dashboard/Dashboard";
 import MyProducts from "../dashboard/pages/MyProducts/MyProducts";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -39,7 +40,11 @@ const Router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardMain />,
+    element: (
+      <PrivateRoute>
+        <DashboardMain />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard",

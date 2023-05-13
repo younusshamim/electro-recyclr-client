@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Box,
   Flex,
   HStack,
   Heading,
@@ -7,12 +8,48 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
 } from "@chakra-ui/react";
 import { AiOutlineSetting } from "react-icons/ai";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
+import { AiOutlineUser } from "react-icons/ai";
+import { FiLogOut } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../contexts/AuthProvider";
 
 const Navbar = () => {
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const menuItems = [
+    { id: 1, name: "My Profile", icon: <AiOutlineUser /> },
+    { id: 2, name: "Logout", icon: <FiLogOut /> },
+  ];
+
+  const handleMenuClick = ({ name }) => {
+    switch (name) {
+      case "Logout":
+        logOut()
+          .then((result) => {
+            console.log(result);
+            navigate("/login");
+          })
+          .catch((err) => console.log(err));
+        break;
+
+      case "My Profile":
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <Flex justify="space-between" mb="5">
       <Heading fontSize="20px">Dashboard</Heading>
@@ -32,7 +69,22 @@ const Navbar = () => {
           fontSize="20px"
         />
 
-        <IconButton icon={<AiOutlineSetting />} size="sm" fontSize="20px" />
+        <Menu>
+          <MenuButton>
+            <IconButton icon={<AiOutlineSetting />} size="sm" fontSize="20px" />
+          </MenuButton>
+
+          <MenuList color="black" minW="180px">
+            {menuItems.map((menu, i) => (
+              <MenuItem key={i} onClick={() => handleMenuClick(menu)}>
+                <HStack py="5px" fontSize="15px">
+                  <Box>{menu.icon}</Box>
+                  <Text>{menu.name}</Text>
+                </HStack>
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
       </HStack>
     </Flex>
   );

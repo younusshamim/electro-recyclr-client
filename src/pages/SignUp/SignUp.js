@@ -1,30 +1,44 @@
 import React, { useState } from "react";
 import {
-  Box,
   Button,
   Flex,
   FormControl,
   FormLabel,
-  HStack,
   Heading,
-  Image,
   Input,
-  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import InputError from "../../components/InputError/InputError";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthProvider";
+import toast from "react-hot-toast";
 
 const SignUp = ({ product }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+  const { createUser, updateUser } = useAuth();
+  const [signUpError, setSignUPError] = useState("");
+  const navigate = useNavigate();
 
-  const handleSignUp = () => {};
+  const handleSignUp = async (data) => {
+    createUser(data.email, data.password)
+      .then(updateUser({ displayName: data.name }))
+      .then(() => {
+        reset();
+        navigate("/dashboard", { replace: true });
+        toast("User Created Successfully.");
+      })
+      .catch((err) => {
+        console.log(err);
+        setSignUPError(err.message);
+      });
+  };
 
   return (
     <Flex h="700px" w="96" p="7" direction="column" mx="auto" mt="7">
@@ -102,6 +116,8 @@ const SignUp = ({ product }) => {
             color="white"
           />
         </VStack>
+
+        {signUpError && <Text color="red.600">{signUpError}</Text>}
       </form>
 
       <Flex mt="5px">

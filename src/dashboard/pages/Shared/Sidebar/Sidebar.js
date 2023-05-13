@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import sidebarItem from "../../../../data/sidbarItem";
 import SidebarItem from "./SidebarItem";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -22,9 +23,11 @@ const Sidebar = () => {
       p="5"
       position="relative"
     >
-      <Heading color="black" fontSize="24px" fontWeight="bold" mb="8">
-        ElectroRecyclr
-      </Heading>
+      <Link to="/">
+        <Heading color="black" fontSize="24px" fontWeight="bold" mb="8">
+          ElectroRecyclr
+        </Heading>
+      </Link>
 
       <VStack align="flex-start">
         {sidebarItem.map((sidebarItem, i) => (
