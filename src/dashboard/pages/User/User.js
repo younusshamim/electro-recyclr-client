@@ -14,16 +14,22 @@ import { useMutation } from "react-query";
 import { onUpdateUser } from "../../../services/users-services";
 
 const User = () => {
+  const { userDetails } = useAuth();
+
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
-  } = useForm();
-  const { userDetails } = useAuth();
+  } = useForm({
+    defaultValues: {
+      name: userDetails?.name,
+      email: userDetails?.email,
+      mobile: userDetails?.mobile,
+      password: userDetails?.password,
+    },
+  });
 
-  const { mutate, isLoading, isError, isSuccess, error, data } =
-    useMutation(onUpdateUser);
+  const { mutate } = useMutation(onUpdateUser);
 
   const handleSave = async (data) => {
     mutate({
@@ -31,9 +37,9 @@ const User = () => {
       img: "",
       ...data,
     });
-  };
 
-  console.log(userDetails);
+    console.log(data);
+  };
 
   return (
     <Stack align="center" justify="center">
@@ -42,7 +48,6 @@ const User = () => {
           <FormControl>
             <FormLabel>Name</FormLabel>
             <Input
-              value={userDetails?.name}
               type="text"
               {...register("name", {
                 required: "Name is Required",
@@ -53,19 +58,13 @@ const User = () => {
 
           <FormControl>
             <FormLabel>Email</FormLabel>
-            <Input
-              readOnly
-              value={userDetails?.email}
-              type="text"
-              {...register("email")}
-            />
+            <Input type="text" {...register("email")} />
             {errors?.email && <InputError error={errors?.email?.message} />}
           </FormControl>
 
           <FormControl>
             <FormLabel>Mobile</FormLabel>
             <Input
-              value={userDetails?.mobile}
               type="text"
               {...register("mobile", {
                 required: "Mobile is Required",
@@ -81,7 +80,6 @@ const User = () => {
           <FormControl>
             <FormLabel>Password</FormLabel>
             <Input
-              value={userDetails?.password}
               type="password"
               {...register("password", {
                 required: "Password is Required",

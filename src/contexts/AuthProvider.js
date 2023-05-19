@@ -20,14 +20,14 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
 
-  const userDetailsData = useQuery(
+  const { data, isLoading, isRefetching } = useQuery(
     ["userDetails", user?.email],
     () => onGetUserDetails(user?.email),
     {
       enabled: !!user?.email,
     }
   );
-  const userDetails = userDetailsData?.data?.data;
+  const userDetails = data?.data;
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -76,7 +76,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     user,
     userDetails,
-    loading,
+    loading: loading || isLoading || isRefetching,
     setLoading,
   };
 
