@@ -22,6 +22,7 @@ import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUser } from "react-icons/ai";
 import { useAuth } from "../../../contexts/AuthProvider";
 import BeatLoading from "../../../components/Loader/BeatLoading";
+import userImage from "../../../assets/user.png";
 
 const Navbar = () => {
   const { user, logOut, loading: authLoading } = useAuth();
@@ -123,7 +124,7 @@ const Navbar = () => {
       </Box>
 
       {authLoading ? (
-        <BeatLoading size={12} />
+        <BeatLoading size={10} />
       ) : user ? (
         <Menu>
           <MenuButton>
@@ -137,7 +138,7 @@ const Navbar = () => {
                 h="37px"
                 borderRadius="10px"
                 objectFit="cover"
-                src={user?.photoURL}
+                src={user?.photoURL || userImage}
                 alt="Dan Abramov"
                 ml="15px"
                 mr="7px"

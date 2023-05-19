@@ -10,6 +10,7 @@ import DashboardMain from "../dashboard/layout/DashboardMain";
 import Dashboard from "../dashboard/pages/Dashboard/Dashboard";
 import MyProducts from "../dashboard/pages/MyProducts/MyProducts";
 import PrivateRoute from "./PrivateRoute";
+import User from "../dashboard/pages/User/User";
 
 const Router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const Router = createBrowserRouter([
       {
         path: "/dashboard/my-products",
         element: <MyProducts />,
+      },
+      {
+        path: "/dashboard/user",
+        element: <User />,
       },
     ],
   },

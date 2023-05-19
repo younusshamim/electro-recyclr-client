@@ -2,6 +2,8 @@ import { Input } from "@chakra-ui/react";
 import React from "react";
 import { useAuth } from "../../contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { onSaveUser } from "../../services/users-services";
+import { useMutation } from "react-query";
 
 const GoogleLogin = () => {
   const { user, googleSignIn, loading } = useAuth();
@@ -11,10 +13,14 @@ const GoogleLogin = () => {
     navigate("/dashboard", { replace: true });
   }
 
+  const { mutate } = useMutation(onSaveUser);
+
   const handleGoogleSignIn = async () => {
     try {
-      const result = await googleSignIn();
-      console.log({ result });
+      const {
+        user: { email, displayName, photoURL },
+      } = await googleSignIn();
+      mutate({ name: displayName, email, img: photoURL });
     } catch (err) {
       console.log(err.message);
     }

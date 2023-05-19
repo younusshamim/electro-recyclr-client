@@ -19,7 +19,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthProvider";
 
 const Navbar = () => {
@@ -28,7 +28,7 @@ const Navbar = () => {
 
   const menuItems = [
     { id: 1, name: "My Profile", icon: <AiOutlineUser /> },
-    { id: 2, name: "Logout", icon: <FiLogOut /> },
+    { id: 2, name: "Logout", link: "", icon: <FiLogOut /> },
   ];
 
   const handleMenuClick = ({ name }) => {
@@ -43,6 +43,7 @@ const Navbar = () => {
         break;
 
       case "My Profile":
+        navigate("/dashboard/user");
         break;
 
       default:

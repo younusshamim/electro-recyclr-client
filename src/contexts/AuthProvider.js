@@ -6,9 +6,12 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updatePassword,
   updateProfile,
 } from "firebase/auth";
-import auth from "../firebase/firebase.config";
+import auth from "../config//firebase/firebase";
+import { useQuery } from "react-query";
+import { onGetUserDetails } from "../services/users-services";
 
 const AuthContext = createContext();
 
@@ -16,6 +19,15 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+
+  const userDetailsData = useQuery(
+    ["userDetails", user?.email],
+    () => onGetUserDetails(user?.email),
+    {
+      enabled: !!user?.email,
+    }
+  );
+  const userDetails = userDetailsData?.data?.data;
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -34,6 +46,10 @@ const AuthProvider = ({ children }) => {
 
   const updateUser = (userInfo) => {
     return updateProfile(auth.currentUser, userInfo);
+  };
+
+  const updateUserPassword = (newPassword) => {
+    return updatePassword(auth.currentUser, newPassword);
   };
 
   const logOut = () => {
@@ -56,8 +72,10 @@ const AuthProvider = ({ children }) => {
     signIn,
     googleSignIn,
     updateUser,
+    updateUserPassword,
     logOut,
     user,
+    userDetails,
     loading,
     setLoading,
   };

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -10,11 +9,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 import InputError from "../../components/InputError/InputError";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import GoogleLogin from "../../components/GoogleLogin/GoogleLogin";
+import { onSaveUser } from "../../services/users-services";
 
 const SignUp = ({ product }) => {
   const {
@@ -37,10 +38,14 @@ const SignUp = ({ product }) => {
     navigate("/dashboard", { replace: true });
   }
 
+  const { mutate, isLoading, isError, isSuccess, error, data } =
+    useMutation(onSaveUser);
+
   const handleSignUp = async (data) => {
     try {
       await createUser(data.email, data.password);
       await updateUser({ displayName: data.name });
+      mutate(data);
       reset();
       toast("User Created Successfully.");
     } catch (err) {
