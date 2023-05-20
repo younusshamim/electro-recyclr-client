@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -12,9 +12,10 @@ import InputError from "../../components/InputError/InputError";
 import { useAuth } from "../../../contexts/AuthProvider";
 import { useMutation } from "react-query";
 import { onUpdateUser } from "../../../services/users-services";
+import toast from "react-hot-toast";
 
 const User = () => {
-  const { userDetails } = useAuth();
+  const { userDetails, updateUserPassword, refetchUser } = useAuth();
 
   const {
     register,
@@ -32,13 +33,17 @@ const User = () => {
   const { mutate } = useMutation(onUpdateUser);
 
   const handleSave = async (data) => {
-    mutate({
-      _id: userDetails._id,
-      img: "",
-      ...data,
-    });
-
-    console.log(data);
+    try {
+      await updateUserPassword(data.password);
+      mutate({
+        id: userDetails._id,
+        ...data,
+      });
+      refetchUser();
+      toast("User Updated Successfully.");
+    } catch (err) {
+      toast(err.message);
+    }
   };
 
   return (

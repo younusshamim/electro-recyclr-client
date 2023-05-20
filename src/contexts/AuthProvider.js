@@ -20,7 +20,12 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
 
-  const { data, isLoading, isRefetching } = useQuery(
+  const {
+    data,
+    isLoading,
+    isRefetching,
+    refetch: refetchUser,
+  } = useQuery(
     ["userDetails", user?.email],
     () => onGetUserDetails(user?.email),
     {
@@ -77,6 +82,7 @@ const AuthProvider = ({ children }) => {
     user,
     userDetails,
     loading: loading || isLoading || isRefetching,
+    refetchUser,
     setLoading,
   };
 
