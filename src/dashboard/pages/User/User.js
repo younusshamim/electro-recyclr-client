@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   FormControl,
   FormLabel,
@@ -15,19 +15,23 @@ import { onUpdateUser } from "../../../services/users-services";
 import toast from "react-hot-toast";
 
 const User = () => {
-  const { userDetails, updateUserPassword, refetchUser } = useAuth();
+  const { userDetails, updateUser, updateUserPassword, refetchUser } =
+    useAuth();
+
+  const initValues = {
+    name: userDetails?.name,
+    email: userDetails?.email,
+    mobile: userDetails?.mobile,
+    password: userDetails?.password,
+  };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
-    defaultValues: {
-      name: userDetails?.name,
-      email: userDetails?.email,
-      mobile: userDetails?.mobile,
-      password: userDetails?.password,
-    },
+    defaultValues: initValues,
   });
 
   const { mutate } = useMutation(onUpdateUser);
@@ -35,16 +39,26 @@ const User = () => {
   const handleSave = async (data) => {
     try {
       await updateUserPassword(data.password);
-      mutate({
+      await updateUser({ displayName: data.name });
+      await mutate({
         id: userDetails._id,
         ...data,
       });
-      refetchUser();
       toast("User Updated Successfully.");
     } catch (err) {
       toast(err.message);
     }
   };
+
+  useEffect(() => {
+    refetchUser();
+    reset({
+      name: userDetails.name,
+      email: userDetails.email,
+      mobile: userDetails.mobile,
+      password: userDetails.password,
+    });
+  }, [refetchUser, userDetails, reset]);
 
   return (
     <Stack align="center" justify="center">

@@ -23,14 +23,11 @@ const AuthProvider = ({ children }) => {
   const {
     data,
     isLoading,
-    isRefetching,
     refetch: refetchUser,
   } = useQuery(
     ["userDetails", user?.email],
     () => onGetUserDetails(user?.email),
-    {
-      enabled: !!user?.email,
-    }
+    { enabled: !!user?.email }
   );
   const userDetails = data?.data;
 
@@ -81,7 +78,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     user,
     userDetails,
-    loading: loading || isLoading || isRefetching,
+    loading: loading || isLoading,
     refetchUser,
     setLoading,
   };
