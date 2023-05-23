@@ -31,23 +31,21 @@ const SignUp = ({ product }) => {
     loading: authLoading,
     setLoading: setAuthLoading,
   } = useAuth();
+
   const [signUpError, setSignUPError] = useState("");
   const navigate = useNavigate();
-
-  if (user) {
-    navigate("/dashboard", { replace: true });
-  }
 
   const { mutate, isLoading, isError, isSuccess, error, data } =
     useMutation(onSaveUser);
 
   const handleSignUp = async (data) => {
     try {
+      mutate(data);
       await createUser(data.email, data.password);
       await updateUser({ displayName: data.name });
-      mutate(data);
       reset();
       toast("User Created Successfully.");
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       setSignUPError(err.message);
     } finally {

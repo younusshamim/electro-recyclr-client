@@ -32,13 +32,10 @@ const Login = ({ product }) => {
   const location = useLocation();
   const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
 
-  if (user) {
-    navigate(targetUrl, { replace: true });
-  }
-
   const handleSignIn = async (data) => {
     try {
       await signIn(data.email, data.password);
+      navigate(targetUrl, { replace: true });
     } catch (error) {
       setLoginError(error.message);
       setAuthLoading(false);

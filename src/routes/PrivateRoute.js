@@ -15,6 +15,7 @@ const PrivateRoute = ({ children }) => {
       </Stack>
     );
   }
+
   if (user) {
     return children;
   }

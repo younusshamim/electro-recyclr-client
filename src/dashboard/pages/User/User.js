@@ -14,6 +14,7 @@ import { useMutation } from "react-query";
 import { onUpdateUser } from "../../../services/users-services";
 import toast from "react-hot-toast";
 import saveImageToImgBB from "../../../utils/saveImageToImgBB";
+import userImage from "../../../assets/user.png";
 
 const User = () => {
   const { updateUser, updateUserPassword, userDetails, getUserDetails } =
@@ -121,17 +122,17 @@ const User = () => {
             />
           </FormControl>
 
-          {userDetails?.img && (
-            <FormControl>
-              <Image
-                src={imgUrl ? imgUrl : userDetails.img}
-                h="80px"
-                w="80px"
-                borderRadius="5"
-                objectFit="cover"
-              />
-            </FormControl>
-          )}
+          <FormControl>
+            <Image
+              src={
+                imgUrl ? imgUrl : userDetails?.img ? userDetails.img : userImage
+              }
+              h="80px"
+              w="80px"
+              borderRadius="5"
+              objectFit="cover"
+            />
+          </FormControl>
         </Grid>
 
         <Input

@@ -25,7 +25,7 @@ import BeatLoading from "../../../components/Loader/BeatLoading";
 import userImage from "../../../assets/user.png";
 
 const Navbar = () => {
-  const { user, logOut, loading: authLoading } = useAuth();
+  const { user, logOut, loading: authLoading, userDetails } = useAuth();
   const navigate = useNavigate();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
@@ -125,7 +125,7 @@ const Navbar = () => {
 
       {authLoading ? (
         <BeatLoading size={10} />
-      ) : user ? (
+      ) : userDetails ? (
         <Menu>
           <MenuButton>
             <Flex
@@ -138,13 +138,13 @@ const Navbar = () => {
                 h="37px"
                 borderRadius="10px"
                 objectFit="cover"
-                src={user?.photoURL || userImage}
+                src={userDetails?.img || userImage}
                 alt="Dan Abramov"
                 ml="15px"
                 mr="7px"
               />
               <Text fontWeight="semibold" fontSize="15px" mr="5px">
-                {user?.displayName?.split(" ")[0]}
+                {userDetails?.name?.split(" ")[0]}
               </Text>
               <Box>
                 <IoIosArrowDown />
