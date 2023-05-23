@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -13,37 +13,38 @@ import { useAuth } from "../../../contexts/AuthProvider";
 import { useMutation } from "react-query";
 import { onUpdateUser } from "../../../services/users-services";
 import toast from "react-hot-toast";
+import saveImageToImgBB from "../../../utils/saveImageToImgBB";
 
 const User = () => {
-  const { userDetails, updateUser, updateUserPassword, refetchUser } =
+  const { updateUser, updateUserPassword, userDetails, getUserDetails } =
     useAuth();
-
-  const initValues = {
-    name: userDetails?.name,
-    email: userDetails?.email,
-    mobile: userDetails?.mobile,
-    password: userDetails?.password,
-  };
+  const [imageFiles, setImageFiles] = useState(null);
+  const imgUrl = imageFiles && URL.createObjectURL(imageFiles[0]);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm({
-    defaultValues: initValues,
-  });
+    formState: { errors, isSubmitting },
+    setValue,
+  } = useForm();
 
   const { mutate } = useMutation(onUpdateUser);
 
   const handleSave = async (data) => {
     try {
+      const imgBB = imageFiles && (await saveImageToImgBB(imageFiles));
+      const userData = {
+        id: userDetails._id,
+        name: data.name,
+        email: data.email,
+        mobile: data.mobile,
+        password: data.password,
+        img: imgBB ? imgBB.display_url : userDetails.img,
+      };
+      mutate(userData);
       await updateUserPassword(data.password);
       await updateUser({ displayName: data.name });
-      await mutate({
-        id: userDetails._id,
-        ...data,
-      });
+      await getUserDetails();
       toast("User Updated Successfully.");
     } catch (err) {
       toast(err.message);
@@ -51,14 +52,13 @@ const User = () => {
   };
 
   useEffect(() => {
-    refetchUser();
-    reset({
-      name: userDetails.name,
-      email: userDetails.email,
-      mobile: userDetails.mobile,
-      password: userDetails.password,
-    });
-  }, [refetchUser, userDetails, reset]);
+    if (userDetails) {
+      setValue("name", userDetails.name);
+      setValue("email", userDetails.email);
+      setValue("mobile", userDetails.mobile);
+      setValue("password", userDetails.password);
+    }
+  }, [userDetails, setValue]);
 
   return (
     <Stack align="center" justify="center">
@@ -77,7 +77,7 @@ const User = () => {
 
           <FormControl>
             <FormLabel>Email</FormLabel>
-            <Input type="text" {...register("email")} />
+            <Input readOnly type="text" {...register("email")} />
             {errors?.email && <InputError error={errors?.email?.message} />}
           </FormControl>
 
@@ -115,13 +115,16 @@ const User = () => {
 
           <FormControl>
             <FormLabel>Image</FormLabel>
-            <Input type="file" />
+            <Input
+              type="file"
+              onChange={(e) => setImageFiles(e.target.files)}
+            />
           </FormControl>
 
           {userDetails?.img && (
             <FormControl>
               <Image
-                src={userDetails?.img}
+                src={imgUrl ? imgUrl : userDetails.img}
                 h="80px"
                 w="80px"
                 borderRadius="5"
@@ -132,6 +135,7 @@ const User = () => {
         </Grid>
 
         <Input
+          disabled={isSubmitting}
           mt="6"
           value="Save"
           type="submit"

@@ -10,26 +10,25 @@ import {
   updateProfile,
 } from "firebase/auth";
 import auth from "../config//firebase/firebase";
-import { useQuery } from "react-query";
 import { onGetUserDetails } from "../services/users-services";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+  const email = user?.email;
 
-  const {
-    data,
-    isLoading,
-    refetch: refetchUser,
-  } = useQuery(
-    ["userDetails", user?.email],
-    () => onGetUserDetails(user?.email),
-    { enabled: !!user?.email }
-  );
-  const userDetails = data?.data;
+  const getUserDetails = async () => {
+    try {
+      const { data } = await onGetUserDetails(email);
+      setUserDetails(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -69,6 +68,12 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (email) {
+      getUserDetails();
+    }
+  }, [email]);
+
   const authInfo = {
     createUser,
     signIn,
@@ -78,8 +83,8 @@ const AuthProvider = ({ children }) => {
     logOut,
     user,
     userDetails,
-    loading: loading || isLoading,
-    refetchUser,
+    getUserDetails,
+    loading,
     setLoading,
   };
 

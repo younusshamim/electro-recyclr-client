@@ -1,21 +1,13 @@
 import React from "react";
-import {
-  Box,
-  Flex,
-  HStack,
-  Heading,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Flex, HStack, Heading, Image, Text, VStack } from "@chakra-ui/react";
 import sidebarItem from "../../../../data/sidbarItem";
 import SidebarItem from "./SidebarItem";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../../contexts/AuthProvider";
 import userImage from "../../../../assets/user.png";
+import { useAuth } from "../../../../contexts/AuthProvider";
 
 const Sidebar = () => {
-  const { user } = useAuth();
+  const { userDetails } = useAuth();
 
   return (
     <Flex
@@ -52,7 +44,7 @@ const Sidebar = () => {
           cursor="pointer"
         >
           <Image
-            src={user?.photoURL || userImage}
+            src={userDetails?.img || userImage}
             alt=""
             rounded="50%"
             h="40px"
@@ -62,14 +54,14 @@ const Sidebar = () => {
           />
           <Flex direction="column">
             <Heading fontSize="14px" fontWeight="semibold">
-              {user?.displayName?.length > 20
-                ? user?.displayName?.slice(0, 21) + ".."
-                : user?.displayName}
+              {userDetails?.name?.length > 20
+                ? userDetails?.name?.slice(0, 21) + ".."
+                : userDetails?.name}
             </Heading>
             <Text fontSize="12px" color="gray.500">
-              {user?.email?.length > 19
-                ? user?.email?.slice(0, 19) + "..."
-                : user?.email}
+              {userDetails?.email?.length > 19
+                ? userDetails?.email?.slice(0, 19) + "..."
+                : userDetails?.email}
             </Text>
           </Flex>
         </HStack>

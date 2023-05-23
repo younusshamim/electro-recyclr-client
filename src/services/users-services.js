@@ -1,5 +1,6 @@
 import axios from "axios";
 import baseUrl from "./baseUrl";
+const imageHostKey = process.env.REACT_APP_imgbb_key;
 
 export const onSaveUser = async (data) => {
   return await axios.post(`${baseUrl}/users`, data);
