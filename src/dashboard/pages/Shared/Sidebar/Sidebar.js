@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, HStack, Heading, Image, Text, VStack } from "@chakra-ui/react";
-import sidebarItem from "../../../../data/sidbarItem";
+import sidebarItem from "../../../../data/sidebarItem";
 import SidebarItem from "./SidebarItem";
 import { Link } from "react-router-dom";
 import userImage from "../../../../assets/user.png";

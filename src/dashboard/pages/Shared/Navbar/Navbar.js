@@ -53,7 +53,7 @@ const Navbar = () => {
 
   return (
     <Flex justify="space-between" mb="5">
-      <Heading fontSize="20px">Dashboard</Heading>
+      <Heading fontSize="22px">Users List</Heading>
 
       <HStack>
         <InputGroup bg="gray.100" size="sm">

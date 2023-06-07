@@ -39,7 +39,7 @@ const sidebarItem = [
   {
     id: 6,
     item: "User List",
-    link: "/dashboard/user-list",
+    link: "/dashboard/users",
     Icon: FiUsers,
   },
 ];
