@@ -19,12 +19,15 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthProvider";
+import getTitle from "../../../utils/getTitle";
 
 const Navbar = () => {
   const { logOut } = useAuth();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const title = getTitle(pathname);
 
   const menuItems = [
     { id: 1, name: "My Profile", icon: <AiOutlineUser /> },
@@ -53,7 +56,7 @@ const Navbar = () => {
 
   return (
     <Flex justify="space-between" mb="5">
-      <Heading fontSize="22px">Users List</Heading>
+      <Heading fontSize="22px">{title}</Heading>
 
       <HStack>
         <InputGroup bg="gray.100" size="sm">
@@ -77,7 +80,7 @@ const Navbar = () => {
 
           <MenuList color="black" minW="180px">
             {menuItems.map((menu, i) => (
-              <MenuItem key={i} onClick={() => handleMenuClick(menu)}>
+              <MenuItem key={menu + i} onClick={() => handleMenuClick(menu)}>
                 <HStack py="5px" fontSize="15px">
                   <Box>{menu.icon}</Box>
                   <Text>{menu.name}</Text>

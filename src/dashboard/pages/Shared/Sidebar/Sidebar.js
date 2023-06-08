@@ -36,7 +36,7 @@ const Sidebar = () => {
       <VStack align="flex-start">
         <Accordion allowMultiple w="full">
           {sidebarItem.map((sidebarItem, i) => (
-            <SidebarItem sidebarItem={sidebarItem} key={sidebarItem.item + i} />
+            <SidebarItem sidebarItem={sidebarItem} key={sidebarItem.name + i} />
           ))}
         </Accordion>
       </VStack>
