@@ -10,7 +10,7 @@ import DashboardMain from "../dashboard/layout/DashboardMain";
 import Dashboard from "../dashboard/pages/Dashboard/Dashboard";
 import MyProducts from "../dashboard/pages/MyProducts/MyProducts";
 import PrivateRoute from "./PrivateRoute";
-import User from "../dashboard/pages/User/User";
+import Profile from "../dashboard/pages/Profile/Profile";
 import Users from "../dashboard/pages/Users/Users";
 
 const Router = createBrowserRouter([
@@ -61,8 +61,8 @@ const Router = createBrowserRouter([
         element: <Users />,
       },
       {
-        path: "/dashboard/user",
-        element: <User />,
+        path: "/dashboard/profile",
+        element: <Profile />,
       },
     ],
   },

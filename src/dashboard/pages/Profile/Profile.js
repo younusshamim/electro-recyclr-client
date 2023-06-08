@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 import saveImageToImgBB from "../../../utils/saveImageToImgBB";
 import userImage from "../../../assets/user.png";
 
-const User = () => {
+const Profile = () => {
   const { updateUser, updateUserPassword, userDetails, getUserDetails } =
     useAuth();
   const [imageFiles, setImageFiles] = useState(null);
@@ -151,4 +151,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Profile;

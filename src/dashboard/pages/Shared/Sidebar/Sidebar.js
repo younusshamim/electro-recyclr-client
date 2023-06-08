@@ -41,7 +41,7 @@ const Sidebar = () => {
         </Accordion>
       </VStack>
 
-      <Link to="/dashboard/user">
+      <Link to="/dashboard/profile">
         <HStack
           bg="gray.50"
           p="10px 3px"

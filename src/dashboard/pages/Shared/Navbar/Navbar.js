@@ -31,7 +31,7 @@ const Navbar = () => {
 
   const menuItems = [
     { id: 1, name: "My Profile", icon: <AiOutlineUser /> },
-    { id: 2, name: "Logout", link: "", icon: <FiLogOut /> },
+    { id: 2, name: "Logout", icon: <FiLogOut /> },
   ];
 
   const handleMenuClick = ({ name }) => {
@@ -46,7 +46,7 @@ const Navbar = () => {
         break;
 
       case "My Profile":
-        navigate("/dashboard/user");
+        navigate("/dashboard/profile");
         break;
 
       default:
@@ -59,13 +59,13 @@ const Navbar = () => {
       <Heading fontSize="22px">{title}</Heading>
 
       <HStack>
-        <InputGroup bg="gray.100" size="sm">
+        {/* <InputGroup bg="gray.100" size="sm">
           <InputLeftElement
             pointerEvents="none"
             children={<BsSearch color="gray.300" />}
           />
           <Input type="text" placeholder="Search.." />
-        </InputGroup>
+        </InputGroup> */}
 
         <IconButton
           icon={<IoIosNotificationsOutline />}

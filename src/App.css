@@ -1,0 +1,6 @@
+.SimpleTable tr:last-child td{
+    border:none;
+}
+.SimpleTable tr td{
+    border-style: dashed;
+}
