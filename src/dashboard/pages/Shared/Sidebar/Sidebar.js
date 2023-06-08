@@ -1,5 +1,13 @@
 import React from "react";
-import { Flex, HStack, Heading, Image, Text, VStack } from "@chakra-ui/react";
+import {
+  Accordion,
+  Flex,
+  HStack,
+  Heading,
+  Image,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import sidebarItem from "../../../../data/sidebarItem";
 import SidebarItem from "./SidebarItem";
 import { Link } from "react-router-dom";
@@ -14,7 +22,7 @@ const Sidebar = () => {
       direction="column"
       borderRightWidth="1px"
       borderRightColor="gray.100"
-      w="230px"
+      w="250px"
       h="100vh"
       p="5"
       position="relative"
@@ -26,14 +34,16 @@ const Sidebar = () => {
       </Link>
 
       <VStack align="flex-start">
-        {sidebarItem.map((sidebarItem, i) => (
-          <SidebarItem sidebarItem={sidebarItem} key={sidebarItem.item + i} />
-        ))}
+        <Accordion allowMultiple w="full">
+          {sidebarItem.map((sidebarItem, i) => (
+            <SidebarItem sidebarItem={sidebarItem} key={sidebarItem.item + i} />
+          ))}
+        </Accordion>
       </VStack>
 
       <Link to="/dashboard/user">
         <HStack
-          bg="gray.100"
+          bg="gray.50"
           p="10px 3px"
           overflow="hidden"
           borderRadius="lg"
