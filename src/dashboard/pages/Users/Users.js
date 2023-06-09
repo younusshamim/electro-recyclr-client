@@ -23,24 +23,35 @@ const Users = () => {
         <Heading fontSize="20px">Users List</Heading>
 
         <HStack w="fit-content">
-          <Flex bg="gray.100" borderRadius="sm" w="220px" position="relative">
-            <Box top="0" right="0" position="absolute" cursor="pointer">
-              <BsSearch color="gray.300" />
-            </Box>
-
-            <Input
-              type="text"
-              placeholder="Search email or mobile.."
-              borderRadius="sm"
-              size="sm"
-            />
-          </Flex>
-
-          <Select size="sm" m="5" w="130px" bg="gray.100" borderRadius="sm">
+          <Select size="sm" w="130px" bg="gray.100" borderRadius="sm">
             <option value="">All User</option>
             <option value="">Verified User</option>
             <option value="">Admin List</option>
           </Select>
+
+          <Flex>
+            <Input
+              type="text"
+              placeholder="Search email or mobile.."
+              size="sm"
+              bg="gray.100"
+              borderRadius="sm"
+              w="190px"
+            />
+
+            <HStack
+              cursor="pointer"
+              bg="gray.200"
+              _hover={{ bg: "gray.300" }}
+              _active={{ bg: "gray.200" }}
+              transition="0.2s"
+              w="30px"
+              h="32px"
+              justify="center"
+            >
+              <BsSearch color="gray.300" />
+            </HStack>
+          </Flex>
         </HStack>
       </HStack>
 

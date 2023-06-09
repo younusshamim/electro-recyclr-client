@@ -1,8 +1,8 @@
 import { extendTheme } from "@chakra-ui/react";
-import colors from "./foundations/colors";
+import foundations from "./foundations";
 
 const theme = extendTheme({
-  colors,
+  ...foundations,
 });
 
 export default theme;
