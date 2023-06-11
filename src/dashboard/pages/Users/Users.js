@@ -19,7 +19,7 @@ const Users = () => {
   );
 
   const users = data?.data;
-  const loading = isRefetching || isLoading;
+  const loading = isLoading;
 
   // handle functions
   const handleSearch = (e) => {
@@ -97,7 +97,7 @@ const Users = () => {
         <>Error..</>
       ) : (
         <SimpleTable theadData={theadData}>
-          <TableBody users={users} />
+          <TableBody users={users} refetchUsers={refetch} />
         </SimpleTable>
       )}
     </BorderedStack>

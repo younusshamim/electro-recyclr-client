@@ -8,24 +8,37 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Td,
   Text,
   Tr,
 } from "@chakra-ui/react";
 import userImage from "../../../assets/user.png";
 import { IoIosArrowDown } from "react-icons/io";
+import CstmTd from "../../components/CstmTd/CstmTd";
+import { useMutation } from "react-query";
+import { onUpdateUserStatus } from "../../../services/users-services";
+import toast from "react-hot-toast";
 
-const TableBody = ({ users }) => {
+const TableBody = ({ users, refetchUsers }) => {
   const menuItems = [
     { value: "User", option: "Make User" },
     { value: "Verified", option: "Verified User" },
     { value: "Admin", option: "Make Admin" },
   ];
 
+  const { mutate, error } = useMutation(onUpdateUserStatus, {
+    onSuccess: () => {
+      refetchUsers();
+      toast("User Updated Successfully.");
+    },
+    onError: (err) => {
+      toast(err.message);
+    },
+  });
+
   return users.map(({ _id, status, name, mobile, img, email }) => {
     return (
       <Tr key={_id}>
-        <Td>
+        <CstmTd>
           <HStack>
             <Image
               src={img ? img : userImage}
@@ -38,11 +51,11 @@ const TableBody = ({ users }) => {
             />
             <Text>{name}</Text>
           </HStack>
-        </Td>
-        <Td>{email}</Td>
-        <Td>{mobile}</Td>
+        </CstmTd>
+        <CstmTd>{email}</CstmTd>
+        <CstmTd>{mobile}</CstmTd>
 
-        <Td>
+        <CstmTd>
           <Menu>
             <MenuButton>
               <Button size="sm">
@@ -59,14 +72,18 @@ const TableBody = ({ users }) => {
               {menuItems.map(({ value, option }, i) => {
                 if (status === value) return;
                 return (
-                  <MenuItem key={option + i} onClick={() => {}} fontSize="15px">
+                  <MenuItem
+                    key={option + i}
+                    onClick={() => mutate({ _id, value })}
+                    fontSize="15px"
+                  >
                     {option}
                   </MenuItem>
                 );
               })}
             </MenuList>
           </Menu>
-        </Td>
+        </CstmTd>
       </Tr>
     );
   });
