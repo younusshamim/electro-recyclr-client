@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Flex, HStack, Heading, Input, Select } from "@chakra-ui/react";
+import { Flex, HStack, Heading, Input, Select, Stack } from "@chakra-ui/react";
 import BorderedStack from "../../../components/BorderedStack/BorderedStack";
 import TableBody from "./TableBody";
 import SimpleTable from "../Shared/SimpleTable/SimpleTable";
 import { BsSearch } from "react-icons/bs";
 import { onGetUsers } from "../../../services/users-services";
+import BeatLoading from "../../../components/Loader/BeatLoading";
+import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
 
 const Users = () => {
   const [status, setStatus] = useState("");
@@ -92,9 +94,9 @@ const Users = () => {
       </HStack>
 
       {loading ? (
-        <>Loading..</>
+        <BeatLoading />
       ) : error ? (
-        <>Error..</>
+        <ErrorMessage error={error?.message} />
       ) : (
         <SimpleTable theadData={theadData}>
           <TableBody users={users} refetchUsers={refetch} />
