@@ -8,6 +8,7 @@ import { BsSearch } from "react-icons/bs";
 import { onGetUsers } from "../../../services/users-services";
 import BeatLoading from "../../../components/Loader/BeatLoading";
 import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
+import NoDataFound from "../../../components/NoDataFound/NoDataFound";
 
 const Users = () => {
   const [status, setStatus] = useState("");
@@ -15,11 +16,10 @@ const Users = () => {
   const theadData = ["User", "Email", "Mobile", "Status"];
 
   // use query  data
-  const { data, isLoading, isRefetching, refetch, error } = useQuery(
+  const { data, isLoading, refetch, error } = useQuery(
     ["getUser", status],
     () => onGetUsers(status, search)
   );
-
   const users = data?.data;
   const loading = isLoading;
 
@@ -97,6 +97,8 @@ const Users = () => {
         <BeatLoading />
       ) : error ? (
         <ErrorMessage error={error?.message} />
+      ) : users.length === 0 ? (
+        <NoDataFound msg="No Users Found !!" />
       ) : (
         <SimpleTable theadData={theadData}>
           <TableBody users={users} refetchUsers={refetch} />

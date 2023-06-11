@@ -58,7 +58,7 @@ const TableBody = ({ users, refetchUsers }) => {
         <CstmTd>
           <Menu>
             <MenuButton>
-              <Button size="sm">
+              <Button size="sm" w="90px">
                 <HStack>
                   <Text>{status}</Text>
                   <Box>
