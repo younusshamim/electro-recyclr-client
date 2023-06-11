@@ -25,7 +25,7 @@ const Sidebar = () => {
       w="250px"
       h="100vh"
       p="5"
-      position="relative"
+      position="fixed"
     >
       <Link to="/">
         <Heading color="black" fontSize="24px" fontWeight="bold" mb="8">

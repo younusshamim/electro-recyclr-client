@@ -13,3 +13,7 @@ export const onUpdateUser = async ({ id, ...data }) => {
 export const onGetUserDetails = async (email) => {
   return await axios.get(`${baseUrl}/users/${email}`);
 };
+
+export const onGetUsers = async (status, search) => {
+  return await axios.get(`${baseUrl}/users?status=${status}&search=${search}`);
+};

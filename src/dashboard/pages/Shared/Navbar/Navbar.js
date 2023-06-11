@@ -5,9 +5,6 @@ import {
   HStack,
   Heading,
   IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Menu,
   MenuButton,
   MenuItem,
@@ -16,10 +13,9 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineSetting } from "react-icons/ai";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { BsSearch } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthProvider";
 import getTitle from "../../../utils/getTitle";
 

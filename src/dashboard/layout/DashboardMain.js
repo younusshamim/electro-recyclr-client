@@ -8,7 +8,7 @@ const DashboardMain = () => {
   return (
     <Flex>
       <Sidebar />
-      <Flex direction="column" p="5" w="calc(100% - 250px)">
+      <Flex direction="column" p="5" w="calc(100% - 250px)" ml="250px">
         <Navbar />
         <Outlet />
       </Flex>
