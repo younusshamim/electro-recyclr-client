@@ -5,24 +5,33 @@ import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
 import NoDataFound from "../../../components/NoDataFound/NoDataFound";
 import SimpleTable from "../Shared/SimpleTable/SimpleTable";
 import TableRow from "./TableRow";
+import categoryItems from "../../../data/categories";
+import { Button, useDisclosure } from "@chakra-ui/react";
+import AddCategoryModal from "./AddCategoryModal";
 
 const Categories = () => {
-  const categories = [];
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const loading = false;
   const error = false;
-  const theadData = ["Category"];
+  const theadData = ["Name", "Action"];
 
   return (
     <BorderedStack>
+      <Button w="fit-content" size="sm" onClick={onOpen} mb="2">
+        Add Category
+      </Button>
+
+      {isOpen && <AddCategoryModal isOpen={isOpen} onClose={onClose} />}
+
       {loading ? (
         <BeatLoading />
       ) : error ? (
         <ErrorMessage error={error?.message} />
-      ) : categories.length === 0 ? (
+      ) : categoryItems.length === 0 ? (
         <NoDataFound msg="No Users Found !!" />
       ) : (
         <SimpleTable theadData={theadData}>
-          {categories.map((category, i) => (
+          {categoryItems.map((category, i) => (
             <TableRow category={category} key={i} />
           ))}
         </SimpleTable>

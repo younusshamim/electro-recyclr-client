@@ -27,7 +27,7 @@ const categoryItems = [
   {
     id: 6,
     name: "Watch",
-    img: "https://rootoverbd.com/public/uploads/category/1623219978-232213_eymxil.webp",
+    img: "https://s3.amazonaws.com/s3.brathwait.com/images/products/020-quartz-rosegold-marron-frontal.png?mtime=20201202204505",
   },
   {
     id: 7,
