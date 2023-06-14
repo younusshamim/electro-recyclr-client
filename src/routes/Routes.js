@@ -13,6 +13,7 @@ import PrivateRoute from "./PrivateRoute";
 import Profile from "../dashboard/pages/Profile/Profile";
 import Users from "../dashboard/pages/Users/Users";
 import Categories from "../dashboard/pages/Categories/Categories";
+import AddProduct from "../dashboard/pages/AddProduct/AddProduct";
 
 const Router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const Router = createBrowserRouter([
       {
         path: "/dashboard/my-products",
         element: <MyProducts />,
+      },
+      {
+        path: "/dashboard/add-product",
+        element: <AddProduct />,
       },
       {
         path: "/dashboard/categories",

@@ -15,6 +15,7 @@ const setFocusBorder = {
 const components = {
   Input: setFocusBorder,
   Select: setFocusBorder,
+  Textarea: setFocusBorder,
 };
 
 export default components;

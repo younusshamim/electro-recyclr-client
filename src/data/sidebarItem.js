@@ -33,13 +33,13 @@ const sidebarItem = [
       { id: 2, name: "Purchase", link: "/dashboard/purchase" },
     ],
   },
-  {
-    id: 4,
-    name: "Pending Products",
-    link: "/dashboard/pending-products",
-    Icon: MdPendingActions,
-    subItems: [],
-  },
+  // {
+  //   id: 4,
+  //   name: "Pending Products",
+  //   link: "/dashboard/pending-products",
+  //   Icon: MdPendingActions,
+  //   subItems: [],
+  // },
   {
     id: 5,
     name: "Categories",

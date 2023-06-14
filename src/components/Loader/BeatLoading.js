@@ -1,9 +1,9 @@
 import { Flex } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 
-const BeatLoading = ({ size, h = "50vh" }) => {
+const BeatLoading = ({ size, h = "50vh", w = "100%" }) => {
   return (
-    <Flex w="100%" h={h} align="center" justify="center">
+    <Flex w={w} h={h} align="center" justify="center">
       <BeatLoader
         color={"#3b3b3b"}
         loading={true}

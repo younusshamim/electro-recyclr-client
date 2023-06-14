@@ -8,13 +8,13 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import InputError from "../../components/InputError/InputError";
 import { useAuth } from "../../../contexts/AuthProvider";
 import { useMutation } from "react-query";
 import { onUpdateUser } from "../../../services/users-services";
 import toast from "react-hot-toast";
 import saveImageToImgBB from "../../../utils/saveImageToImgBB";
 import userImage from "../../../assets/user.png";
+import TextInput from "../../components/TextInput/TextInput";
 
 const Profile = () => {
   const { updateUser, updateUserPassword, userDetails, getUserDetails } =
@@ -22,12 +22,12 @@ const Profile = () => {
   const [imageFiles, setImageFiles] = useState(null);
   const imgUrl = imageFiles && URL.createObjectURL(imageFiles[0]);
 
+  const handleForm = useForm();
   const {
-    register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
     setValue,
-  } = useForm();
+  } = handleForm;
 
   const { mutate } = useMutation(onUpdateUser);
 
@@ -65,54 +65,51 @@ const Profile = () => {
     <Stack align="center" justify="center">
       <form onSubmit={handleSubmit(handleSave)}>
         <Grid templateColumns="repeat(2, 1fr)" gap={6} w="700px" mt="10">
-          <FormControl>
-            <FormLabel>Name</FormLabel>
-            <Input
-              type="text"
-              {...register("name", {
-                required: "Name is Required",
-              })}
-            />
-            {errors?.name && <InputError error={errors?.name?.message} />}
-          </FormControl>
+          <TextInput
+            label="Name"
+            name="name"
+            type="text"
+            handleForm={handleForm}
+            validations={{
+              required: "Name is Required",
+            }}
+          />
 
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input readOnly type="text" {...register("email")} />
-            {errors?.email && <InputError error={errors?.email?.message} />}
-          </FormControl>
+          <TextInput
+            label="Email"
+            name="email"
+            type="email"
+            handleForm={handleForm}
+            inputRest={{ readOnly: true }}
+          />
 
-          <FormControl>
-            <FormLabel>Mobile</FormLabel>
-            <Input
-              type="text"
-              {...register("mobile", {
-                required: "Mobile is Required",
-                pattern: {
-                  value: /(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/,
-                  message: "Invalid Number",
-                },
-              })}
-            />
-            {errors?.mobile && <InputError error={errors?.mobile?.message} />}
-          </FormControl>
+          <TextInput
+            label="Mobile"
+            name="mobile"
+            type="mobile"
+            handleForm={handleForm}
+            validations={{
+              required: "Mobile is Required",
+              pattern: {
+                value: /(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/,
+                message: "Invalid Number",
+              },
+            }}
+          />
 
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              {...register("password", {
-                required: "Password is Required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be 6 characters long",
-                },
-              })}
-            />
-            {errors?.password && (
-              <InputError error={errors?.password?.message} />
-            )}
-          </FormControl>
+          <TextInput
+            label="Password"
+            name="password"
+            type="password"
+            handleForm={handleForm}
+            validations={{
+              required: "Password is Required",
+              minLength: {
+                value: 6,
+                message: "Password must be 6 characters long",
+              },
+            }}
+          />
 
           <FormControl>
             <FormLabel>Image</FormLabel>

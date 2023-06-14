@@ -124,7 +124,7 @@ const Navbar = () => {
       </Box>
 
       {authLoading ? (
-        <BeatLoading size={10} />
+        <BeatLoading size={10} h="0" w="0" />
       ) : userDetails ? (
         <Menu>
           <MenuButton>

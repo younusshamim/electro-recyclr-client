@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Button,
-  HStack,
-  IconButton,
-  Image,
-  Td,
-  Text,
-  Tr,
-} from "@chakra-ui/react";
-import CstmTd from "../../components/CstmTd/CstmTd";
+import { HStack, IconButton, Image, Td, Text, Tr } from "@chakra-ui/react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 
