@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import BorderedStack from "../../../components/BorderedStack/BorderedStack";
-import { Grid, Heading, Input } from "@chakra-ui/react";
+import { Box, Grid, Heading, Input, Text, VStack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput/TextInput";
 import TextArea from "../../components/TextArea/TextArea";
+import Select from "react-select";
+import districts from "../../../data/districts";
+import ReactSelect from "../../components/ReactSelect/ReactSelect";
 
 const AddProduct = () => {
+  // states
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  // form handle
   const handleForm = useForm();
   const { handleSubmit, reset } = handleForm;
-
-  const handleAddProduct = async (data) => {
-    // const payload = {
-    //   images: [{ img: "" }, { img: "" }, { img: "" }],
-    // };
-  };
+  // district options
+  const districtOptions = districts.map((district) => {
+    return { value: district, label: district };
+  });
+  // handle function
+  const handleAddProduct = async (data) => {};
 
   return (
     <BorderedStack>
-      <Heading fontSize="20px">Add New Product</Heading>
+      <Heading fontSize="20px" mb="5">
+        Add New Product
+      </Heading>
 
       <form onSubmit={handleSubmit(handleAddProduct)}>
         <Grid templateColumns="repeat(4, 1fr)" gap={4}>
@@ -74,6 +82,19 @@ const AddProduct = () => {
               required: "Description is Required",
             }}
           />
+
+          <ReactSelect
+            name="district"
+            label="Select District"
+            // placeholder="Select District"
+            handleForm={handleForm}
+            options={districtOptions}
+            value={selectedDistrict}
+            setValue={setSelectedDistrict}
+            validations={{
+              required: "District is Required",
+            }}
+          />
         </Grid>
 
         <Input
@@ -84,6 +105,7 @@ const AddProduct = () => {
           bg="primary.900"
           _active={{ bg: "primary.700" }}
           color="white"
+          mt="10"
         />
       </form>
     </BorderedStack>

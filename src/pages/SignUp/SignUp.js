@@ -1,29 +1,22 @@
 import React, { useState } from "react";
-import {
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Flex, Heading, Input, Text, VStack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import InputError from "../../components/InputError/InputError";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import GoogleLogin from "../../components/GoogleLogin/GoogleLogin";
 import { onSaveUser } from "../../services/users-services";
+import TextInput from "../../dashboard/components/TextInput/TextInput";
 
 const SignUp = ({ product }) => {
+  const handleForm = useForm();
   const {
-    register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = handleForm;
+
   const {
     user,
     createUser,
@@ -61,63 +54,57 @@ const SignUp = ({ product }) => {
 
       <form onSubmit={handleSubmit(handleSignUp)}>
         <VStack gap="1">
-          <FormControl>
-            <FormLabel>Name</FormLabel>
-            <Input
-              type="text"
-              {...register("name", {
-                required: "Name is Required",
-              })}
-            />
-            {errors?.name && <InputError error={errors?.name?.message} />}
-          </FormControl>
+          <TextInput
+            label="Name"
+            name="name"
+            type="text"
+            handleForm={handleForm}
+            validations={{
+              required: "Name is Required",
+            }}
+          />
 
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="text"
-              {...register("email", {
-                required: "Email is Required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid Email",
-                },
-              })}
-            />
-            {errors?.email && <InputError error={errors?.email?.message} />}
-          </FormControl>
+          <TextInput
+            label="Email"
+            name="email"
+            type="text"
+            handleForm={handleForm}
+            validations={{
+              required: "Email is Required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid Email",
+              },
+            }}
+          />
 
-          <FormControl>
-            <FormLabel>Mobile</FormLabel>
-            <Input
-              type="text"
-              {...register("mobile", {
-                required: "Mobile is Required",
-                pattern: {
-                  value: /(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/,
-                  message: "Invalid Number",
-                },
-              })}
-            />
-            {errors?.mobile && <InputError error={errors?.mobile?.message} />}
-          </FormControl>
+          <TextInput
+            label="Mobile"
+            name="mobile"
+            type="text"
+            handleForm={handleForm}
+            validations={{
+              required: "Mobile is Required",
+              pattern: {
+                value: /(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/,
+                message: "Invalid Number",
+              },
+            }}
+          />
 
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              {...register("password", {
-                required: "Password is Required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be 6 characters long",
-                },
-              })}
-            />
-            {errors?.password && (
-              <InputError error={errors?.password?.message} />
-            )}
-          </FormControl>
+          <TextInput
+            label="Password"
+            name="password"
+            type="password"
+            handleForm={handleForm}
+            validations={{
+              required: "Password is Required",
+              minLength: {
+                value: 6,
+                message: "Password must be 6 characters long",
+              },
+            }}
+          />
 
           <Input
             disabled={authLoading}

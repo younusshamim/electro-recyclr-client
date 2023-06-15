@@ -1,26 +1,19 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Flex, Heading, Input, Text, VStack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import InputError from "../../components/InputError/InputError";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import GoogleLogin from "../../components/GoogleLogin/GoogleLogin";
+import TextInput from "../../dashboard/components/TextInput/TextInput";
 
 const Login = ({ product }) => {
+  const handleForm = useForm();
   const {
-    register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = handleForm;
+
   const {
     user,
     signIn,
@@ -50,37 +43,32 @@ const Login = ({ product }) => {
 
       <form onSubmit={handleSubmit(handleSignIn)}>
         <VStack gap="1">
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="text"
-              {...register("email", {
-                required: "Email is Required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid Email",
-                },
-              })}
-            />
-            {errors?.email && <InputError error={errors?.email?.message} />}
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              {...register("password", {
-                required: "Password is Required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be 6 characters long",
-                },
-              })}
-            />
-            {errors?.password && (
-              <InputError error={errors?.password?.message} />
-            )}
-          </FormControl>
+          <TextInput
+            label="Email"
+            name="email"
+            type="text"
+            handleForm={handleForm}
+            validations={{
+              required: "Email is Required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid Email",
+              },
+            }}
+          />
+          <TextInput
+            label="Password"
+            name="password"
+            type="password"
+            handleForm={handleForm}
+            validations={{
+              required: "Password is Required",
+              minLength: {
+                value: 6,
+                message: "Password must be 6 characters long",
+              },
+            }}
+          />
 
           <Input
             disabled={authLoading}
