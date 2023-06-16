@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import BorderedStack from "../../../components/BorderedStack/BorderedStack";
 import { Box, Grid, Heading, Input, Text, VStack } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import TextInput from "../../components/TextInput/TextInput";
 import TextArea from "../../components/TextArea/TextArea";
-import Select from "react-select";
 import districts from "../../../data/districts";
 import ReactSelect from "../../components/ReactSelect/ReactSelect";
+import Select from "react-select";
 
 const AddProduct = () => {
   // states
   const [selectedDistrict, setSelectedDistrict] = useState("");
   // form handle
   const handleForm = useForm();
-  const { handleSubmit, reset } = handleForm;
+  const {
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = handleForm;
   // district options
   const districtOptions = districts.map((district) => {
     return { value: district, label: district };
@@ -83,10 +88,10 @@ const AddProduct = () => {
             }}
           />
 
-          <ReactSelect
+          {/* <ReactSelect
             name="district"
             label="Select District"
-            // placeholder="Select District"
+            placeholder="Select District"
             handleForm={handleForm}
             options={districtOptions}
             value={selectedDistrict}
@@ -94,7 +99,33 @@ const AddProduct = () => {
             validations={{
               required: "District is Required",
             }}
-          />
+            Controller={Controller}
+          /> */}
+
+          <VStack align="flex-start">
+            <Text fontWeight="semibold">Distict</Text>
+
+            <Box w="100%">
+              <Controller
+                control={control}
+                name="district"
+                rules={{ required: "District is required" }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    options={districtOptions}
+                    // value={selectedDistrict}
+                    // onChange={setSelectedDistrict}
+                  />
+                )}
+              />
+              {errors.district && (
+                <Text color="negative.900" fontSize="14px">
+                  {errors.district.message}
+                </Text>
+              )}
+            </Box>
+          </VStack>
         </Grid>
 
         <Input

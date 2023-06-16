@@ -11,10 +11,12 @@ const ReactSelect = ({
   setValue,
   handleForm,
   validations,
+  Controller,
   ...rest
 }) => {
   const {
     register,
+    control,
     formState: { errors },
   } = handleForm;
 
@@ -25,20 +27,18 @@ const ReactSelect = ({
       <Text fontWeight="semibold">{label}</Text>
 
       <Box w="100%">
-        <Select
-          {...rest}
-          placeholder={placeholder}
-          styles={customStyle}
+        <Controller
+          control={control}
           name={name}
-          className="basic-single"
-          options={options}
-          value={value}
-          onChange={setValue}
-          isDisabled={false}
-          isLoading={false}
-          isClearable={false}
-          isSearchable={true}
-          ref={register({ validations })}
+          render={({ field }) => (
+            <Select
+              {...field}
+              className="basic-single"
+              options={options}
+              value={value}
+              onChange={setValue}
+            />
+          )}
         />
 
         {errors[name] && (
