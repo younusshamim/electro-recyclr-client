@@ -1,18 +1,27 @@
 import React from "react";
-import { Box, Text, VStack } from "@chakra-ui/react";
-import Select from "react-select";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Select,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import ReactSelectt from "react-select";
+import { Controller } from "react-hook-form";
 
 const ReactSelect = ({
-  name,
   label,
+  name,
   placeholder,
   options,
-  value,
-  setValue,
   handleForm,
   validations,
-  Controller,
-  ...rest
+  value,
+  setValue,
+  controlRest,
+  inputRest,
+  errorRest,
 }) => {
   const {
     register,
@@ -22,33 +31,55 @@ const ReactSelect = ({
 
   const customStyle = {};
 
-  return (
-    <VStack align="flex-start">
-      <Text fontWeight="semibold">{label}</Text>
-
-      <Box w="100%">
-        <Controller
-          control={control}
-          name={name}
-          render={({ field }) => (
-            <Select
-              {...field}
-              className="basic-single"
-              options={options}
-              value={value}
-              onChange={setValue}
-            />
-          )}
-        />
+  if (setValue) {
+    return (
+      <FormControl {...controlRest}>
+        <FormLabel>{label}</FormLabel>
+        <Select
+          {...register(name, validations)}
+          {...inputRest}
+          placeholder={placeholder}
+        >
+          {options.map(({ value, label }) => {
+            return (
+              <option value={value} key={value}>
+                {label}
+              </option>
+            );
+          })}
+        </Select>
 
         {errors[name] && (
-          <Text color="negative.900" fontSize="14px">
+          <Text color="negative.900" fontSize="14px" {...errorRest}>
             {errors[name].message}
           </Text>
         )}
-      </Box>
-    </VStack>
-  );
+      </FormControl>
+    );
+  } else {
+    return (
+      <VStack align="flex-start" {...controlRest} w="100%">
+        <Text fontWeight="semibold">{label}</Text>
+        <Box w="100%">
+          <Controller
+            control={control}
+            placeholder={placeholder}
+            name={name}
+            rules={validations}
+            render={({ field }) => (
+              <ReactSelectt {...field} options={options} />
+            )}
+            {...inputRest}
+          />
+          {errors[name] && (
+            <Text color="negative.900" fontSize="14px" {...errorRest}>
+              {errors[name].message}
+            </Text>
+          )}
+        </Box>
+      </VStack>
+    );
+  }
 };
 
 export default ReactSelect;
