@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BorderedStack from "../../../components/BorderedStack/BorderedStack";
 import {
   Box,
+  Button,
+  Flex,
   FormControl,
   FormLabel,
   Grid,
@@ -18,10 +20,11 @@ import districts from "../../../data/districts";
 import ReactSelect from "../../components/ReactSelect/ReactSelect";
 import getYearOptions from "../../utils/getYearOptions";
 import { IoMdClose } from "react-icons/io";
-import { imgFileToUrl } from "../../utils/files";
+import { arrToFileList, imgFileToUrl } from "../../utils/files";
+import { BiUpload } from "react-icons/bi";
 
 const AddProduct = () => {
-  const [imagesFiles, setImagesFiles] = useState([]);
+  const [selectedImages, setSelectedImages] = useState([]);
 
   // form handle
   const handleForm = useForm();
@@ -31,7 +34,32 @@ const AddProduct = () => {
     register,
     formState: { errors },
     setValue,
+    getValues,
   } = handleForm;
+
+  // handle function
+  const handleAddProduct = (data) => {
+    console.log("hi");
+  };
+
+  const imgValidation = (files) => {
+    if ([...files].length < 1) {
+      return "At least one image is required.";
+    }
+    return true;
+  };
+
+  const handleImgChange = (e) => {
+    const files = e.target.files;
+    setSelectedImages((prev) => [...prev, ...files]);
+  };
+
+  const handleFileRemove = (index) => {
+    const updatedFiles = [...selectedImages];
+    updatedFiles.splice(index, 1);
+    setSelectedImages(updatedFiles);
+    setValue("images", updatedFiles);
+  };
 
   //  options
   const districtOptions = districts.map((district) => {
@@ -42,23 +70,7 @@ const AddProduct = () => {
     return { value: condition, label: condition };
   });
 
-  // handle function
-  const handleAddProduct = (data) => {
-    console.log(data);
-  };
-
-  const handleImageChange = (e) => {
-    const fileList = e.target.files;
-    const fileArray = Array.from(fileList);
-    setImagesFiles((prev) => [...prev, ...fileArray]);
-  };
-
-  const handleFileRemove = (index) => {
-    const updatedFiles = [...imagesFiles];
-    updatedFiles.splice(index, 1);
-    setImagesFiles(updatedFiles);
-    setValue("images", updatedFiles);
-  };
+  console.log(getValues("images"));
 
   return (
     <BorderedStack>
@@ -68,7 +80,7 @@ const AddProduct = () => {
 
       <form onSubmit={handleSubmit(handleAddProduct)}>
         <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-          {/* <TextInput
+          <TextInput
             label="Product Name"
             name="name"
             type="text"
@@ -92,7 +104,7 @@ const AddProduct = () => {
 
           <TextInput
             label="Orginal Price"
-            name="orginalPrice"
+            name="OrginalPrice"
             type="text"
             placeholder="Product Orginal Price"
             handleForm={handleForm}
@@ -117,7 +129,7 @@ const AddProduct = () => {
             name="district"
             options={districtOptions}
             handleForm={handleForm}
-            validations={{ required: "District is required" }}
+            validations={{ required: "District is Required" }}
           />
 
           <ReactSelect
@@ -144,21 +156,35 @@ const AddProduct = () => {
             validations={{
               required: "Description is Required",
             }}
-          /> */}
+          />
 
-          <FormControl w="">
+          <FormControl>
             <FormLabel>Select Images</FormLabel>
+
+            {/* Hidden file input */}
             <Input
+              display="none"
               type="file"
+              id="images"
               name="images"
               multiple
               {...register("images", {
-                required: "Images are Required",
+                validate: imgValidation,
+                onChange: handleImgChange,
               })}
-              onChange={handleImageChange}
             />
 
-            {imagesFiles?.length <= 0 && errors.images && (
+            {/* Upload button */}
+            <Button variant="outline" htmlFor="images" as="label">
+              <Text mr="10px" fontWeight="normal">
+                Upload
+              </Text>
+              <Box fontSize="22px">
+                <BiUpload />
+              </Box>
+            </Button>
+
+            {errors.images && (
               <Text color="negative.900" fontSize="14px">
                 {errors.images.message}
               </Text>
@@ -166,7 +192,7 @@ const AddProduct = () => {
           </FormControl>
 
           <HStack gridColumn="2/5">
-            {imagesFiles?.map((file, index) => {
+            {selectedImages?.map((file, index) => {
               const url = imgFileToUrl(file);
               return (
                 <Box position="relative" key={index}>
