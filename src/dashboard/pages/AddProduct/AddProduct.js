@@ -19,7 +19,10 @@ const AddProduct = () => {
 
   // handle function
   const handleAddProduct = (data) => {
-    console.log("hi");
+    const payload = {
+      ...data,
+    };
+    console.log(data);
   };
 
   const imgValidation = (files) => {
@@ -90,9 +93,6 @@ const AddProduct = () => {
             type="text"
             placeholder="Product Orginal Price"
             handleForm={handleForm}
-            validations={{
-              required: "Orginal Price is Required",
-            }}
           />
 
           <TextInput
@@ -101,9 +101,6 @@ const AddProduct = () => {
             type="text"
             placeholder="Write Meeting Address"
             handleForm={handleForm}
-            validations={{
-              required: "Meeting Address is Required",
-            }}
           />
 
           <ReactSelect
@@ -135,9 +132,6 @@ const AddProduct = () => {
             name="description"
             placeholder="Write Description"
             handleForm={handleForm}
-            validations={{
-              required: "Description is Required",
-            }}
           />
 
           <SelectImage
