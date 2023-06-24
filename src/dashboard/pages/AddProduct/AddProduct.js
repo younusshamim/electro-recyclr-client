@@ -1,27 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import BorderedStack from "../../../components/BorderedStack/BorderedStack";
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Grid,
-  HStack,
-  Heading,
-  Image,
-  Input,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Grid, HStack, Heading, Input, VStack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput/TextInput";
 import TextArea from "../../components/TextArea/TextArea";
 import districts from "../../../data/districts";
 import ReactSelect from "../../components/ReactSelect/ReactSelect";
 import getYearOptions from "../../utils/getYearOptions";
-import { IoMdClose } from "react-icons/io";
-import { arrToFileList, imgFileToUrl } from "../../utils/files";
-import { BiUpload } from "react-icons/bi";
+import { imgFileToUrl } from "../../utils/files";
+import SelectImage from "../../components/SelectImage/SelectImage";
+import SingleImage from "./SingleImage";
+import { BiImageAdd } from "react-icons/bi";
+import ImagePreview from "./ImagePreview";
 
 const AddProduct = () => {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -158,71 +148,18 @@ const AddProduct = () => {
             }}
           />
 
-          <FormControl>
-            <FormLabel>Select Images</FormLabel>
-
-            {/* Hidden file input */}
-            <Input
-              display="none"
-              type="file"
-              id="images"
-              name="images"
-              multiple
-              {...register("images", {
-                validate: imgValidation,
-                onChange: handleImgChange,
-              })}
-            />
-
-            {/* Upload button */}
-            <Button variant="outline" htmlFor="images" as="label">
-              <Text mr="10px" fontWeight="normal">
-                Upload
-              </Text>
-              <Box fontSize="22px">
-                <BiUpload />
-              </Box>
-            </Button>
-
-            {errors.images && (
-              <Text color="negative.900" fontSize="14px">
-                {errors.images.message}
-              </Text>
-            )}
-          </FormControl>
+          <SelectImage
+            label="Select Images"
+            name="images"
+            id="images"
+            handleForm={handleForm}
+            validations={imgValidation}
+            handleChange={handleImgChange}
+            btnText="Upload"
+          />
 
           <HStack gridColumn="2/5">
-            {selectedImages?.map((file, index) => {
-              const url = imgFileToUrl(file);
-              return (
-                <Box position="relative" key={index}>
-                  <Image
-                    src={url}
-                    w="80px"
-                    h="80px"
-                    borderRadius="md"
-                    bg="gray.50"
-                    p="10px"
-                  />
-                  <Box
-                    position="absolute"
-                    bg="primary.900"
-                    _hover={{ bg: "primary.800" }}
-                    _active={{ bg: "primary.900" }}
-                    color="white"
-                    borderRadius="50%"
-                    top="0"
-                    right="0"
-                    padding="1px"
-                    fontSize="14px"
-                    cursor="pointer"
-                    onClick={() => handleFileRemove(index)}
-                  >
-                    <IoMdClose />
-                  </Box>
-                </Box>
-              );
-            })}
+            <ImagePreview />
           </HStack>
         </Grid>
 
