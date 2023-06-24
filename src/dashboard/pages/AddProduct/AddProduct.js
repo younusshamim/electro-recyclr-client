@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import BorderedStack from "../../../components/BorderedStack/BorderedStack";
-import { Box, Grid, HStack, Heading, Input, VStack } from "@chakra-ui/react";
+import { Grid, HStack, Heading, Input } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput/TextInput";
 import TextArea from "../../components/TextArea/TextArea";
 import districts from "../../../data/districts";
 import ReactSelect from "../../components/ReactSelect/ReactSelect";
 import getYearOptions from "../../utils/getYearOptions";
-import { imgFileToUrl } from "../../utils/files";
 import SelectImage from "../../components/SelectImage/SelectImage";
-import SingleImage from "./SingleImage";
-import { BiImageAdd } from "react-icons/bi";
 import ImagePreview from "./ImagePreview";
 
 const AddProduct = () => {
@@ -18,14 +15,7 @@ const AddProduct = () => {
 
   // form handle
   const handleForm = useForm();
-  const {
-    handleSubmit,
-    reset,
-    register,
-    formState: { errors },
-    setValue,
-    getValues,
-  } = handleForm;
+  const { handleSubmit, reset, setValue } = handleForm;
 
   // handle function
   const handleAddProduct = (data) => {
@@ -40,8 +30,12 @@ const AddProduct = () => {
   };
 
   const handleImgChange = (e) => {
-    const files = e.target.files;
-    setSelectedImages((prev) => [...prev, ...files]);
+    const { name, files } = e.target;
+    if (name === "images") {
+      setSelectedImages([...files]);
+    } else if ("addMoreImage") {
+      setSelectedImages((prev) => [...prev, ...files]);
+    }
   };
 
   const handleFileRemove = (index) => {
@@ -59,8 +53,6 @@ const AddProduct = () => {
   const conditionOptions = ["Excellent", "Good", "Fair"].map((condition) => {
     return { value: condition, label: condition };
   });
-
-  console.log(getValues("images"));
 
   return (
     <BorderedStack>
@@ -159,20 +151,26 @@ const AddProduct = () => {
           />
 
           <HStack gridColumn="2/5">
-            <ImagePreview />
+            <ImagePreview
+              selectedImages={selectedImages}
+              handleFileRemove={handleFileRemove}
+              handleChange={handleImgChange}
+            />
           </HStack>
         </Grid>
 
-        <Input
-          value="Add"
-          type="submit"
-          size="lg"
-          cursor="pointer"
-          bg="primary.900"
-          _active={{ bg: "primary.700" }}
-          color="white"
-          mt="10"
-        />
+        <HStack justify="center">
+          <Input
+            value="Add"
+            type="submit"
+            size="lg"
+            cursor="pointer"
+            bg="primary.900"
+            _active={{ bg: "primary.700" }}
+            color="white"
+            mt="10"
+          />
+        </HStack>
       </form>
     </BorderedStack>
   );
