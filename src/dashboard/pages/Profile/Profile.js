@@ -19,8 +19,8 @@ import TextInput from "../../components/TextInput/TextInput";
 const Profile = () => {
   const { updateUser, updateUserPassword, userDetails, getUserDetails } =
     useAuth();
-  const [imageFiles, setImageFiles] = useState(null);
-  const imgUrl = imageFiles && URL.createObjectURL(imageFiles[0]);
+  const [imageFiles, setImageFiles] = useState([]);
+  const imgUrl = imageFiles.length > 0 && URL.createObjectURL(imageFiles[0]);
 
   const handleForm = useForm();
   const {
@@ -33,14 +33,15 @@ const Profile = () => {
 
   const handleSave = async (data) => {
     try {
-      const imgBB = imageFiles && (await saveImageToImgBB(imageFiles));
+      const imgBB =
+        imageFiles.length > 0 && (await saveImageToImgBB(imageFiles));
       const userData = {
         id: userDetails._id,
         name: data.name,
         email: data.email,
         mobile: data.mobile,
         password: data.password,
-        img: imgBB ? imgBB.display_url : userDetails.img,
+        img: imgBB.length > 0 ? imgBB[0].display_url : userDetails.img,
       };
       mutate(userData);
       await updateUserPassword(data.password);
@@ -115,7 +116,7 @@ const Profile = () => {
             <FormLabel>Image</FormLabel>
             <Input
               type="file"
-              onChange={(e) => setImageFiles(e.target.files)}
+              onChange={(e) => setImageFiles([...e.target.files])}
             />
           </FormControl>
 

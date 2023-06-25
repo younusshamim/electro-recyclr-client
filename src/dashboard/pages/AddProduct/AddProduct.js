@@ -9,6 +9,10 @@ import ReactSelect from "../../components/ReactSelect/ReactSelect";
 import getYearOptions from "../../utils/getYearOptions";
 import SelectImage from "../../components/SelectImage/SelectImage";
 import ImagePreview from "./ImagePreview";
+import { toast } from "react-hot-toast";
+import saveImageToImgBB from "../../../utils/saveImageToImgBB";
+import { useQuery } from "react-query";
+import { onGetCategories } from "../../../services/category-services";
 
 const AddProduct = () => {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -17,12 +21,24 @@ const AddProduct = () => {
   const handleForm = useForm();
   const { handleSubmit, reset, setValue } = handleForm;
 
+  // query data
+  const { data: categoriesData, isLoading: categoriesLoading } = useQuery(
+    "getCategories",
+    onGetCategories
+  );
+  const categories = categoriesData?.data;
+
   // handle function
-  const handleAddProduct = (data) => {
-    const payload = {
-      ...data,
-    };
-    console.log(data);
+  const handleAddProduct = async (data) => {
+    try {
+      const imagesDetails = await saveImageToImgBB(selectedImages);
+      const urlList = imagesDetails.map((img) => img.display_url);
+      toast("Added Successfully.");
+      reset();
+      setSelectedImages([]);
+    } catch (err) {
+      toast(err.message);
+    }
   };
 
   const imgValidation = (files) => {
@@ -56,6 +72,9 @@ const AddProduct = () => {
   const conditionOptions = ["Excellent", "Good", "Fair"].map((condition) => {
     return { value: condition, label: condition };
   });
+  const categoryOptions = categories.map((category) => {
+    return { value: category._id, label: category.name };
+  });
 
   return (
     <BorderedStack>
@@ -74,6 +93,14 @@ const AddProduct = () => {
             validations={{
               required: "Name is Required",
             }}
+          />
+
+          <ReactSelect
+            label="Product Category"
+            name="category"
+            options={categoryOptions}
+            handleForm={handleForm}
+            validations={{ required: "Category is Required" }}
           />
 
           <TextInput

@@ -11,11 +11,12 @@ const ImagePreview = ({ selectedImages, handleFileRemove, handleChange }) => {
         const url = imgFileToUrl(file);
 
         return (
-          <Box position="relative">
+          <Box position="relative" key={index}>
             <Image
               src={url}
               w="80px"
               h="80px"
+              objectFit="cover"
               borderRadius="md"
               bg="gray.50"
               p="10px"
