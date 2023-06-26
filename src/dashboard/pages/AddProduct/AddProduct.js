@@ -11,15 +11,29 @@ import SelectImage from "../../components/SelectImage/SelectImage";
 import ImagePreview from "./ImagePreview";
 import { toast } from "react-hot-toast";
 import saveImageToImgBB from "../../../utils/saveImageToImgBB";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { onGetCategories } from "../../../services/category-services";
+import { useAuth } from "../../../contexts/AuthProvider";
+import { onSaveProduct } from "../../../services/product-services";
+import { validateImgType } from "../../utils/validations";
 
 const AddProduct = () => {
   const [selectedImages, setSelectedImages] = useState([]);
+  const { userDetails } = useAuth();
 
   // form handle
   const handleForm = useForm();
   const { handleSubmit, reset, setValue } = handleForm;
+
+  // success & error handle
+  const onSuccess = (data) => {
+    toast("Added Successfully.");
+    reset();
+    setSelectedImages([]);
+  };
+  const onError = (err) => {
+    toast(err.message);
+  };
 
   // query data
   const { data: categoriesData, isLoading: categoriesLoading } = useQuery(
@@ -27,23 +41,37 @@ const AddProduct = () => {
     onGetCategories
   );
   const categories = categoriesData?.data;
+  const { mutate } = useMutation(onSaveProduct, { onSuccess, onError });
 
   // handle function
   const handleAddProduct = async (data) => {
+    const payload = {
+      ...data,
+      userId: userDetails._id,
+      categoryId: data.categoryId.value,
+      condition: data.condition.value,
+      district: data.district.value,
+      yearOfPurchase: data.yearOfPurchase.value,
+    };
+
     try {
       const imagesDetails = await saveImageToImgBB(selectedImages);
-      const urlList = imagesDetails.map((img) => img.display_url);
-      toast("Added Successfully.");
-      reset();
-      setSelectedImages([]);
+      payload.images = imagesDetails.map((img) => img.display_url);
+      mutate(payload);
     } catch (err) {
       toast(err.message);
     }
   };
 
   const imgValidation = (files) => {
-    if ([...files].length < 1) {
+    if (files.length < 1) {
       return "At least one image is required.";
+    }
+    if (
+      !validateImgType(["jpg", "jpeg", "png", "gif"], files) ||
+      !validateImgType(["jpg", "jpeg", "png", "gif"], selectedImages)
+    ) {
+      return "Only JPG, JPEG, PNG, and GIF files are allowed";
     }
     return true;
   };
@@ -72,7 +100,7 @@ const AddProduct = () => {
   const conditionOptions = ["Excellent", "Good", "Fair"].map((condition) => {
     return { value: condition, label: condition };
   });
-  const categoryOptions = categories.map((category) => {
+  const categoryOptions = categories?.map((category) => {
     return { value: category._id, label: category.name };
   });
 
@@ -97,7 +125,7 @@ const AddProduct = () => {
 
           <ReactSelect
             label="Product Category"
-            name="category"
+            name="categoryId"
             options={categoryOptions}
             handleForm={handleForm}
             validations={{ required: "Category is Required" }}
