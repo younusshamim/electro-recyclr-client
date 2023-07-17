@@ -23,8 +23,8 @@ const Product = ({ product }) => {
             w="100%"
             h="190px"
             objectFit="cover"
-            src={product.thumbnail}
-            alt={product.category}
+            src={product.images[0]}
+            alt={product.name}
             className={styles.productImage}
             transition="0.5s"
           />

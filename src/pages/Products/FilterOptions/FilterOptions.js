@@ -14,6 +14,7 @@ import DistrictModal from "./DistrictModal";
 const FilterOptions = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedDistrict, setSelectedDistrict] = useState("Dhaka");
+  const [category, setCategory] = useState();
 
   return (
     <HStack justify="space-between" mt="5" mb="10">
