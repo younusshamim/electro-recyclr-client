@@ -47,7 +47,7 @@ const AddProduct = () => {
   const handleAddProduct = async (data) => {
     const payload = {
       ...data,
-      userId: userDetails._id,
+      userEmail: userDetails.email,
       categoryId: data.categoryId.value,
       condition: data.condition.value,
       district: data.district.value,

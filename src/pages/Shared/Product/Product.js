@@ -61,7 +61,7 @@ const Product = ({ product }) => {
 
           <HStack justify="space-between" mt="5px">
             <Text fontWeight="semibold" color="black">
-              Tk {commaFormat(product.resalePrice)}
+              Tk {commaFormat(product.price)}
             </Text>
             <Text fontSize="14px" color="gray.500" fontWeight="semibold">
               {timeDistance(product.postedTime)}
