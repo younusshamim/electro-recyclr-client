@@ -7,6 +7,7 @@ import Pagination from "../Pagination/Pagination";
 import { onGetProducts } from "../../../services/product-services";
 import { useQuery } from "react-query";
 import BeatLoading from "../../../components/Loader/BeatLoading";
+import { onGetUserDetails } from "../../../services/users-services";
 
 const Products = () => {
   // states
@@ -14,13 +15,13 @@ const Products = () => {
   const [categoryId, setCategoryId] = useState("64895a6801d9a76e5f4c701e");
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(8);
+
   // query
   const queries = `district=${selectedDistrict}&categoryId=${categoryId}&page=${page}&size=${size}`;
-  // data
-  const { data, isLoading } = useQuery(["products", queries], () =>
+  const { data, isLoading } = useQuery([["products", queries], queries], () =>
     onGetProducts(queries)
   );
-  const products = data?.data;
+  const productList = data?.data;
 
   if (isLoading) return <BeatLoading />;
 
@@ -38,7 +39,7 @@ const Products = () => {
         rowGap={{ base: 6, md: 8 }}
         pt="5"
       >
-        {products.map((product, i) => (
+        {productList.map((product, i) => (
           <Product product={product} key={i} />
         ))}
       </Grid>
