@@ -10,7 +10,7 @@ import BeatLoading from "../../../components/Loader/BeatLoading";
 
 const Products = () => {
   // states
-  const [selectedDistrict, setSelectedDistrict] = useState("Dhaka");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
   const [categoryId, setCategoryId] = useState("64895a6801d9a76e5f4c701e");
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(8);
@@ -26,7 +26,11 @@ const Products = () => {
 
   return (
     <Stack p="50px 120px 25px 120px">
-      <FilterOptions />
+      <FilterOptions
+        selectedDistrict={selectedDistrict}
+        setSelectedDistrict={setSelectedDistrict}
+        setCategoryId={setCategoryId}
+      />
 
       <Grid
         templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}

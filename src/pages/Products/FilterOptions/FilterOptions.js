@@ -11,10 +11,12 @@ import { IoIosArrowDown } from "react-icons/io";
 import categoryItems from "../../../data/categories";
 import DistrictModal from "./DistrictModal";
 
-const FilterOptions = () => {
+const FilterOptions = ({
+  selectedDistrict,
+  setSelectedDistrict,
+  setCategoryId,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedDistrict, setSelectedDistrict] = useState("Dhaka");
-  const [category, setCategory] = useState();
 
   return (
     <HStack justify="space-between" mt="5" mb="10">
@@ -22,7 +24,7 @@ const FilterOptions = () => {
         <Text color="gray.500">Sorted By:</Text>
 
         <Flex align="center" justify="center" cursor="pointer" onClick={onOpen}>
-          <Text mr="3px">{selectedDistrict}</Text>
+          <Text mr="3px">{selectedDistrict || "All District"}</Text>
           <IoIosArrowDown />
         </Flex>
 

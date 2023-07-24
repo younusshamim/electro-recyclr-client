@@ -37,10 +37,10 @@ const Product = ({ product }) => {
 
           <HStack>
             <Text color="gray.500" mr="10px">
-              {product.sellerName}
+              {product.sellerInfo.name}
             </Text>
 
-            {product.isVerified && (
+            {product.sellerInfo.isVerified && (
               <Flex
                 align="center"
                 justify="center"
@@ -57,11 +57,13 @@ const Product = ({ product }) => {
               </Flex>
             )}
           </HStack>
-          <Text color="gray.500">{product.address}</Text>
+          <Text color="gray.500">
+            {product.address + ", " + product.district}
+          </Text>
 
           <HStack justify="space-between" mt="5px">
             <Text fontWeight="semibold" color="black">
-              Tk {commaFormat(product.resalePrice)}
+              Tk {commaFormat(product.price)}
             </Text>
             <Text fontSize="14px" color="gray.500" fontWeight="semibold">
               {timeDistance(product.postedTime)}
