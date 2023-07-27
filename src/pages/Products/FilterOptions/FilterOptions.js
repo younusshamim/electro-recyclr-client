@@ -41,7 +41,12 @@ const FilterOptions = ({
         Smart Phones
       </Heading>
 
-      <Select bg="gray.100" w="200px">
+      <Select
+        bg="gray.100"
+        w="200px"
+        value={selectedValue}
+        onChange={handleSelectChange}
+      >
         {categoryItems.map((category, i) => (
           <option value={category.name} key={i}>
             {category.name}

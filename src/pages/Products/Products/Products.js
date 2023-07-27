@@ -30,6 +30,7 @@ const Products = () => {
       <FilterOptions
         selectedDistrict={selectedDistrict}
         setSelectedDistrict={setSelectedDistrict}
+        categoryId={categoryId}
         setCategoryId={setCategoryId}
       />
 
@@ -43,6 +44,7 @@ const Products = () => {
           <Product product={product} key={i} />
         ))}
       </Grid>
+
       <Pagination />
     </Stack>
   );

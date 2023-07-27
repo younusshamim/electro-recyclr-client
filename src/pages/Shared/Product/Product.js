@@ -23,8 +23,8 @@ const Product = ({ product }) => {
             w="100%"
             h="190px"
             objectFit="cover"
-            src={product.images[0]}
-            alt={product.name}
+            src={product?.images[0]}
+            alt={product?.name}
             className={styles.productImage}
             transition="0.5s"
           />
@@ -32,15 +32,15 @@ const Product = ({ product }) => {
 
         <Box>
           <Heading fontSize="18px" fontWeight="semibold" mb="5px" color="black">
-            {product.name}
+            {product?.name}
           </Heading>
 
           <HStack>
             <Text color="gray.500" mr="10px">
-              {product.sellerInfo.name}
+              {product?.sellerInfo?.name}
             </Text>
 
-            {product.sellerInfo.isVerified && (
+            {product?.sellerInfo?.status && (
               <Flex
                 align="center"
                 justify="center"
@@ -58,15 +58,15 @@ const Product = ({ product }) => {
             )}
           </HStack>
           <Text color="gray.500">
-            {product.address + ", " + product.district}
+            {product?.address + ", " + product?.district}
           </Text>
 
           <HStack justify="space-between" mt="5px">
             <Text fontWeight="semibold" color="black">
-              Tk {commaFormat(product.price)}
+              Tk {commaFormat(product?.price)}
             </Text>
             <Text fontSize="14px" color="gray.500" fontWeight="semibold">
-              {timeDistance(product.postedTime)}
+              {timeDistance(product?.postedTime)}
             </Text>
           </HStack>
         </Box>
