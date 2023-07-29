@@ -1,46 +1,23 @@
 import { Box, HStack } from "@chakra-ui/react";
 import React from "react";
 
-const Pagination = () => {
+const Pagination = ({ page, setPage, pages }) => {
   return (
     <HStack justify="center" py="12">
-      <Box
-        bg="gray.100"
-        p="5px 15px"
-        borderRadius="md"
-        fontWeight="semibold"
-        cursor="pointer"
-      >
-        1
-      </Box>
-      <Box
-        bg="black"
-        color="white"
-        p="5px 15px"
-        borderRadius="md"
-        fontWeight="semibold"
-        cursor="pointer"
-      >
-        2
-      </Box>
-      <Box
-        bg="gray.100"
-        p="5px 15px"
-        borderRadius="md"
-        fontWeight="semibold"
-        cursor="pointer"
-      >
-        3
-      </Box>
-      <Box
-        bg="gray.100"
-        p="5px 15px"
-        borderRadius="md"
-        fontWeight="semibold"
-        cursor="pointer"
-      >
-        4
-      </Box>
+      {[...Array(pages).keys()].map((number) => (
+        <Box
+          key={number}
+          bg={page == number ? "black" : "gray.100"}
+          color={page == number ? "white" : null}
+          p="5px 15px"
+          borderRadius="md"
+          fontWeight="semibold"
+          cursor="pointer"
+          onClick={() => setPage(number)}
+        >
+          {number + 1}
+        </Box>
+      ))}
     </HStack>
   );
 };

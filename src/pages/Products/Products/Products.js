@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import { Grid, Stack } from "@chakra-ui/react";
-import ProductList from "../../../data/products";
 import Product from "../../Shared/Product/Product";
 import FilterOptions from "../FilterOptions/FilterOptions";
 import Pagination from "../Pagination/Pagination";
 import { onGetProducts } from "../../../services/product-services";
 import { useQuery } from "react-query";
 import BeatLoading from "../../../components/Loader/BeatLoading";
-import { onGetUserDetails } from "../../../services/users-services";
+import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
 
 const Products = () => {
   // states
   const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [categoryId, setCategoryId] = useState("64895a6801d9a76e5f4c701e");
+  const [categoryId, setCategoryId] = useState("");
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(8);
 
   // query
   const queries = `district=${selectedDistrict}&categoryId=${categoryId}&page=${page}&size=${size}`;
-  const { data, isLoading } = useQuery([["products", queries], queries], () =>
-    onGetProducts(queries)
+  const { data, isLoading, error } = useQuery(
+    [["products", queries], queries],
+    () => onGetProducts(queries)
   );
-  const productList = data?.data;
-
-  if (isLoading) return <BeatLoading />;
+  const productList = data?.data?.products;
+  const count = data?.data?.count;
+  const pages = Math.ceil(count / size);
 
   return (
     <Stack p="50px 120px 25px 120px">
@@ -34,18 +34,28 @@ const Products = () => {
         setCategoryId={setCategoryId}
       />
 
-      <Grid
-        templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
-        columnGap="4"
-        rowGap={{ base: 6, md: 8 }}
-        pt="5"
-      >
-        {productList.map((product, i) => (
-          <Product product={product} key={i} />
-        ))}
-      </Grid>
+      {isLoading ? (
+        <BeatLoading />
+      ) : error ? (
+        <ErrorMessage error={error.message} />
+      ) : productList?.length === 0 ? (
+        <ErrorMessage error="No Data Found" />
+      ) : (
+        <>
+          <Grid
+            templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
+            columnGap="4"
+            rowGap={{ base: 6, md: 8 }}
+            pt="5"
+          >
+            {productList.map((product, i) => (
+              <Product product={product} key={i} />
+            ))}
+          </Grid>
 
-      <Pagination />
+          <Pagination page={page} setPage={setPage} pages={pages} />
+        </>
+      )}
     </Stack>
   );
 };

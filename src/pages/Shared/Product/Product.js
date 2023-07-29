@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Divider,
   Flex,
   HStack,
   Heading,
@@ -40,7 +39,7 @@ const Product = ({ product }) => {
               {product?.sellerInfo?.name}
             </Text>
 
-            {product?.sellerInfo?.status && (
+            {product?.sellerInfo?.status !== "User" && (
               <Flex
                 align="center"
                 justify="center"

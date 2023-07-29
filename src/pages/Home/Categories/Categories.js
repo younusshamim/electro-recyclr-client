@@ -6,10 +6,11 @@ import NextArrow from "../../../components/NextArrow/NextArrow";
 import { onGetCategories } from "../../../services/category-services";
 import { useQuery } from "react-query";
 import BeatLoading from "../../../components/Loader/BeatLoading";
+import useCategories from "../../../hook/useCategories";
 
 const Categories = () => {
-  const { data, isLoading } = useQuery("getCategories", onGetCategories);
-  const categories = data?.data;
+  const { data: categoryData, isLoading } = useCategories();
+  const categories = categoryData?.data;
 
   return (
     <Stack p={{ base: "10px 5px", md: "25px 120px" }}>

@@ -1,4 +1,5 @@
 const districts = [
+  "All District",
   "Bagerhat",
   "Bandarban",
   "Barguna",

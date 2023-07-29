@@ -50,7 +50,7 @@ const DistrictModal = ({ isOpen, onClose, setSelectedDistrict }) => {
                 cursor="pointer"
                 _active={{ color: "gray.500" }}
                 onClick={() => {
-                  setSelectedDistrict(district);
+                  setSelectedDistrict(district === "All District" ? "" : district);
                   onClose();
                 }}
               >
