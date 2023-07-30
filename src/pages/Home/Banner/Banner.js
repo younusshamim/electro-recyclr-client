@@ -1,7 +1,10 @@
 import React from "react";
 import { Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
+  const navigate = useNavigate();
+
   return (
     <Flex
       direction="column"
@@ -28,6 +31,7 @@ const Banner = () => {
         bg="black"
         _hover={{ bg: "black" }}
         _active={{ bg: "gray.700" }}
+        onClick={() => navigate("/dashboard/add-product")}
       >
         Start Selling
       </Button>

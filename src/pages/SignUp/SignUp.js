@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Flex, Heading, Input, Text, VStack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import GoogleLogin from "../../components/GoogleLogin/GoogleLogin";
@@ -28,6 +28,11 @@ const SignUp = ({ product }) => {
   const [signUpError, setSignUPError] = useState("");
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
+
+  console.log(location);
+
   const { mutate, isLoading, isError, isSuccess, error, data } =
     useMutation(onSaveUser);
 
@@ -38,7 +43,7 @@ const SignUp = ({ product }) => {
       await updateUser({ displayName: data.name });
       reset();
       toast("User Created Successfully.");
-      navigate("/dashboard", { replace: true });
+      navigate(targetUrl, { replace: true });
     } catch (err) {
       setSignUPError(err.message);
     } finally {
@@ -128,7 +133,7 @@ const SignUp = ({ product }) => {
         </Text>
       </Flex>
 
-      <GoogleLogin />
+      <GoogleLogin location={location} />
     </Flex>
   );
 };

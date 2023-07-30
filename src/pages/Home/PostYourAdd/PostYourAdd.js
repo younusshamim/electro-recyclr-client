@@ -1,8 +1,11 @@
 import React from "react";
 import { Button, Flex, HStack, Heading, Image, Stack } from "@chakra-ui/react";
 import sellImg from "../../../assets/sell-image.png";
+import { useNavigate } from "react-router-dom";
 
 const PostYourAdd = () => {
+  const navigate = useNavigate();
+
   return (
     <HStack
       p="50px 10px"
@@ -28,6 +31,7 @@ const PostYourAdd = () => {
           bg="black"
           _hover={{ bg: "black" }}
           _active={{ bg: "gray.700" }}
+          onClick={() => navigate("/dashboard/add-product")}
         >
           Post Your Ad
         </Button>

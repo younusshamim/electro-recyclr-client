@@ -17,7 +17,7 @@ import {
 import React from "react";
 import InputField from "./InputField";
 
-const BookingModal = ({ isOpen, onClose }) => {
+const BookingModal = ({ isOpen, onClose, product }) => {
   return (
     <Modal size="xl" isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
@@ -39,18 +39,14 @@ const BookingModal = ({ isOpen, onClose }) => {
               value="younusshamim.bd@gmail.com"
               disabled={true}
             />
-            <InputField
-              label="Product"
-              value="Google pixel 6 pro"
-              disabled={true}
-            />
-            <InputField label="Price" value="8000 BDT" disabled={true} />
+            <InputField label="Product" value={product.name} disabled={true} />
+            <InputField label="Price" value={product.price} disabled={true} />
             <InputField label="Contact No" value="01858286180" type="number" />
             <InputField label="Meeting Address" value="" />
           </Grid>
         </ModalBody>
 
-        <ModalFooter>
+        <ModalFooter pb="5">
           <Button
             color="white"
             bg="black"

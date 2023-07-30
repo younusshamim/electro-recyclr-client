@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { onSaveUser } from "../../services/users-services";
 import { useMutation } from "react-query";
 
-const GoogleLogin = () => {
+const GoogleLogin = ({ location }) => {
   const { user, googleSignIn, loading } = useAuth();
   const navigate = useNavigate();
+  const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
 
   if (user) {
-    navigate("/dashboard", { replace: true });
+    navigate(targetUrl, { replace: true });
   }
 
   const { mutate } = useMutation(onSaveUser);

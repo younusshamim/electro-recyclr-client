@@ -25,6 +25,8 @@ const Login = ({ product }) => {
   const location = useLocation();
   const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
 
+  console.log(location);
+
   const handleSignIn = async (data) => {
     try {
       await signIn(data.email, data.password);
@@ -88,11 +90,13 @@ const Login = ({ product }) => {
       <Flex mt="5px">
         <Text mr="5px">New to Electro Recyclr</Text>
         <Text color="blue.500" fontWeight="semibold">
-          <Link to="/signup">Create new Account</Link>
+          <Link to="/signup" replace>
+            Create new Account
+          </Link>
         </Text>
       </Flex>
 
-      <GoogleLogin />
+      <GoogleLogin location={location} />
     </Flex>
   );
 };

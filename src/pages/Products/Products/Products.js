@@ -29,16 +29,16 @@ const Products = () => {
 
       {search && (
         <Heading fontSize="lg" fontWeight="semibold">
-          Search Result: {productList?.length} items found for {search}
+          Search Result: {productList?.length} items found for '{search}'
         </Heading>
       )}
 
       {isLoading ? (
-        <BeatLoading />
+        <BeatLoading h="65vh" />
       ) : error ? (
-        <ErrorMessage error={error.message} />
+        <ErrorMessage error={error.message} h="65vh" />
       ) : productList?.length === 0 ? (
-        <ErrorMessage error="No Data Found" />
+        <ErrorMessage error="No Data Found" h="65vh" />
       ) : (
         <>
           <Grid

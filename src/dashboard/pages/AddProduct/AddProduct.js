@@ -107,7 +107,7 @@ const AddProduct = () => {
   return (
     <BorderedStack>
       <Heading fontSize="20px" mb="5">
-        Add New Product
+        Post New Product
       </Heading>
 
       <form onSubmit={handleSubmit(handleAddProduct)}>

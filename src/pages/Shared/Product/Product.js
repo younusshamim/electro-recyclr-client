@@ -15,7 +15,7 @@ import { MdVerifiedUser } from "react-icons/md";
 
 const Product = ({ product }) => {
   return (
-    <Link to="/product">
+    <Link to={`/products/${product._id}`}>
       <Stack cursor="pointer" className={styles.singleProduct}>
         <Box overflow="hidden" borderRadius="xl" p="10px" bg="gray.100">
           <Image
