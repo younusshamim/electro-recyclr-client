@@ -16,18 +16,22 @@ import {
 } from "@chakra-ui/react";
 import { IoIosArrowDown } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUser } from "react-icons/ai";
 import { useAuth } from "../../../contexts/AuthProvider";
 import BeatLoading from "../../../components/Loader/BeatLoading";
 import userImage from "../../../assets/user.png";
+import { useFilter } from "../../../contexts/FilterProvider";
 
 const Navbar = () => {
+  const [searchField, setSearchField] = useState("");
   const { user, logOut, loading: authLoading, userDetails } = useAuth();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+  const { filterOptions, setFilterOptions } = useFilter();
 
   const menuItems = [
     { id: 1, name: "Dashboard", icon: <AiOutlineUser /> },
@@ -48,6 +52,14 @@ const Navbar = () => {
 
       default:
         break;
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (searchField.trim() || pathname === "/products") {
+      setFilterOptions({ ...filterOptions, search: searchField });
+      navigate("/products");
     }
   };
 
@@ -83,7 +95,7 @@ const Navbar = () => {
       </Link>
 
       <Box w={{ base: "100%", md: "500px" }}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <InputGroup size="lg" position="relative" borderRadius="md">
             <Box
               color="gray.600"
@@ -97,6 +109,9 @@ const Navbar = () => {
             </Box>
 
             <Input
+              value={searchField}
+              onChange={(e) => setSearchField(e.target.value)}
+              type="text"
               pl="40px"
               placeholder="What are you looking for?"
               bg="gray.50"
@@ -116,6 +131,8 @@ const Navbar = () => {
               cursor="pointer"
               fontSize="15px"
               fontWeight="semibold"
+              type="submit"
+              onClick={handleSubmit}
             >
               Search
             </InputRightAddon>

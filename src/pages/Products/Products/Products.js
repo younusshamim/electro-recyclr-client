@@ -1,4 +1,4 @@
-import { Grid, Stack } from "@chakra-ui/react";
+import { Grid, Heading, Stack, Text } from "@chakra-ui/react";
 import Product from "../../Shared/Product/Product";
 import FilterOptions from "../FilterOptions/FilterOptions";
 import Pagination from "../Pagination/Pagination";
@@ -11,10 +11,10 @@ import { useFilter } from "../../../contexts/FilterProvider";
 const Products = () => {
   // filter context
   const {
-    filterOptions: { selectedDistrict, categoryId, page, size },
+    filterOptions: { selectedDistrict, categoryId, search, page, size },
   } = useFilter();
   // query
-  const queries = `district=${selectedDistrict}&categoryId=${categoryId}&page=${page}&size=${size}`;
+  const queries = `district=${selectedDistrict}&search=${search}&categoryId=${categoryId}&page=${page}&size=${size}`;
   const { data, isLoading, error } = useQuery(["products", queries], () =>
     onGetProducts(queries)
   );
@@ -26,6 +26,12 @@ const Products = () => {
   return (
     <Stack p="50px 120px 25px 120px">
       <FilterOptions />
+
+      {search && (
+        <Heading fontSize="lg" fontWeight="semibold">
+          Search Result: {productList?.length} items found for {search}
+        </Heading>
+      )}
 
       {isLoading ? (
         <BeatLoading />
@@ -39,7 +45,7 @@ const Products = () => {
             templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
             columnGap="4"
             rowGap={{ base: 6, md: 8 }}
-            pt="5"
+            pt="10"
           >
             {productList.map((product, i) => (
               <Product product={product} key={i} />

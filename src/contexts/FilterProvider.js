@@ -7,7 +7,7 @@ const initFilterOptions = {
   categoryId: "",
   page: 0,
   size: 8,
-  searchText: "",
+  search: "",
 };
 
 const FilterProvider = ({ children }) => {

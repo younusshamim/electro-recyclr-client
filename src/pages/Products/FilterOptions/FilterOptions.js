@@ -26,7 +26,7 @@ const FilterOptions = () => {
   if (categoryLoading || error) return;
 
   return (
-    <HStack justify="space-between" mt="5" mb="10">
+    <HStack justify="space-between" mt="5">
       <HStack>
         <Text color="gray.500">Sorted By:</Text>
 
