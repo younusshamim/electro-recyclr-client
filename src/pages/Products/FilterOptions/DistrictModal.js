@@ -12,9 +12,12 @@ import {
 import React, { useState } from "react";
 import districts from "../../../data/districts";
 import { BiSearch } from "react-icons/bi";
+import { useFilter } from "../../../contexts/FilterProvider";
 
-const DistrictModal = ({ isOpen, onClose, setSelectedDistrict }) => {
+const DistrictModal = ({ isOpen, onClose }) => {
   const [districtList, setdistrictList] = useState(districts);
+  // filter contxt
+  const { filterOptions, setFilterOptions } = useFilter();
 
   const handleSearch = (value) => {
     const newDistrictList = districts.filter((district) =>
@@ -50,7 +53,11 @@ const DistrictModal = ({ isOpen, onClose, setSelectedDistrict }) => {
                 cursor="pointer"
                 _active={{ color: "gray.500" }}
                 onClick={() => {
-                  setSelectedDistrict(district === "All District" ? "" : district);
+                  setFilterOptions({
+                    ...filterOptions,
+                    selectedDistrict:
+                      district === "All District" ? "" : district,
+                  });
                   onClose();
                 }}
               >

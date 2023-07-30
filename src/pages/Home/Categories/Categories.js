@@ -6,11 +6,22 @@ import NextArrow from "../../../components/NextArrow/NextArrow";
 import { onGetCategories } from "../../../services/category-services";
 import { useQuery } from "react-query";
 import BeatLoading from "../../../components/Loader/BeatLoading";
-import useCategories from "../../../hook/useCategories";
+import useCategories from "../../../hooks/useCategories";
+import { useFilter } from "../../../contexts/FilterProvider";
+import { useNavigate } from "react-router-dom";
 
 const Categories = () => {
+  const navigate = useNavigate();
+  // data
   const { data: categoryData, isLoading } = useCategories();
   const categories = categoryData?.data;
+  // filter context
+  const { filterOptions, setFilterOptions } = useFilter();
+
+  const handleClick = (categoryId) => {
+    setFilterOptions({ ...filterOptions, categoryId: categoryId });
+    navigate("/products");
+  };
 
   return (
     <Stack p={{ base: "10px 5px", md: "25px 120px" }}>
@@ -40,6 +51,7 @@ const Categories = () => {
               borderColor="gray.200"
               transition="0.4s"
               _hover={{ boxShadow: "lg" }}
+              onClick={() => handleClick(item._id)}
             >
               <Image
                 src={item.img}

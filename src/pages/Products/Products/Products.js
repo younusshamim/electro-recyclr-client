@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Grid, Stack } from "@chakra-ui/react";
 import Product from "../../Shared/Product/Product";
 import FilterOptions from "../FilterOptions/FilterOptions";
@@ -7,32 +6,26 @@ import { onGetProducts } from "../../../services/product-services";
 import { useQuery } from "react-query";
 import BeatLoading from "../../../components/Loader/BeatLoading";
 import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
+import { useFilter } from "../../../contexts/FilterProvider";
 
 const Products = () => {
-  // states
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [categoryId, setCategoryId] = useState("");
-  const [page, setPage] = useState(0);
-  const [size, setSize] = useState(8);
-
+  // filter context
+  const {
+    filterOptions: { selectedDistrict, categoryId, page, size },
+  } = useFilter();
   // query
   const queries = `district=${selectedDistrict}&categoryId=${categoryId}&page=${page}&size=${size}`;
-  const { data, isLoading, error } = useQuery(
-    [["products", queries], queries],
-    () => onGetProducts(queries)
+  const { data, isLoading, error } = useQuery(["products", queries], () =>
+    onGetProducts(queries)
   );
+  // data
   const productList = data?.data?.products;
   const count = data?.data?.count;
   const pages = Math.ceil(count / size);
 
   return (
     <Stack p="50px 120px 25px 120px">
-      <FilterOptions
-        selectedDistrict={selectedDistrict}
-        setSelectedDistrict={setSelectedDistrict}
-        categoryId={categoryId}
-        setCategoryId={setCategoryId}
-      />
+      <FilterOptions />
 
       {isLoading ? (
         <BeatLoading />
@@ -53,7 +46,7 @@ const Products = () => {
             ))}
           </Grid>
 
-          <Pagination page={page} setPage={setPage} pages={pages} />
+          <Pagination pages={pages} />
         </>
       )}
     </Stack>
