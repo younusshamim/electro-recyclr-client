@@ -15,7 +15,7 @@ import { IoIosCall } from "react-icons/io";
 import useCategories from "../../../hooks/useCategories";
 import { useAuth } from "../../../contexts/AuthProvider";
 import BeatLoading from "../../../components/Loader/BeatLoading";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Information = ({ product, onOpen }) => {
   // category data
@@ -24,6 +24,7 @@ const Information = ({ product, onOpen }) => {
   // auth data
   const { loading: authLoading, userDetails } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <Flex direction="column" w="50%">
@@ -90,7 +91,11 @@ const Information = ({ product, onOpen }) => {
           _hover={{ bg: "black" }}
           _active={{ bg: "gray.700" }}
           w="fit-content"
-          onClick={userDetails ? onOpen : () => navigate("/login")}
+          onClick={
+            userDetails
+              ? onOpen
+              : () => navigate("/login", { state: { targetUrl: location } })
+          }
         >
           Book Now
         </Button>

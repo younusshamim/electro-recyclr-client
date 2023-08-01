@@ -8,11 +8,7 @@ import { useMutation } from "react-query";
 const GoogleLogin = ({ location }) => {
   const { user, googleSignIn, loading } = useAuth();
   const navigate = useNavigate();
-  const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
-
-  if (user) {
-    navigate(targetUrl, { replace: true });
-  }
+  const targetUrl = location?.state?.targetUrl?.pathname || "/dashboard";
 
   const { mutate } = useMutation(onSaveUser);
 
@@ -22,6 +18,7 @@ const GoogleLogin = ({ location }) => {
         user: { email, displayName, photoURL },
       } = await googleSignIn();
       mutate({ name: displayName, email, img: photoURL });
+      navigate(targetUrl, { replace: true });
     } catch (err) {
       console.log(err.message);
     }

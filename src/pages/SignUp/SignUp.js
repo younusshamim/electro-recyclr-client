@@ -29,9 +29,8 @@ const SignUp = ({ product }) => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
-
-  console.log(location);
+  const targetUrl =
+    location.state?.targetUrl?.state?.targetUrl?.pathname || "/dashboard";
 
   const { mutate, isLoading, isError, isSuccess, error, data } =
     useMutation(onSaveUser);
@@ -49,6 +48,12 @@ const SignUp = ({ product }) => {
     } finally {
       setAuthLoading(false);
     }
+  };
+
+  const navigatToLogin = () => {
+    navigate("/login", {
+      replace: true,
+    });
   };
 
   return (
@@ -128,12 +133,12 @@ const SignUp = ({ product }) => {
 
       <Flex mt="5px">
         <Text mr="5px">Already have an account</Text>
-        <Text color="blue.500" fontWeight="semibold">
-          <Link to="/login">Please Login</Link>
+        <Text color="blue.500" fontWeight="semibold" onClick={navigatToLogin}>
+          Please Login
         </Text>
       </Flex>
 
-      <GoogleLogin location={location} />
+      <GoogleLogin />
     </Flex>
   );
 };

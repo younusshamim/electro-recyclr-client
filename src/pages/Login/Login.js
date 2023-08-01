@@ -22,10 +22,8 @@ const Login = ({ product }) => {
   } = useAuth();
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
+  let location = useLocation();
   const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
-
-  console.log(location);
 
   const handleSignIn = async (data) => {
     try {
@@ -35,6 +33,13 @@ const Login = ({ product }) => {
       setLoginError(error.message);
       setAuthLoading(false);
     }
+  };
+
+  const navigateToSignUp = () => {
+    navigate("/signup", {
+      state: { targetUrl: location },
+      replace: true,
+    });
   };
 
   return (
@@ -89,10 +94,8 @@ const Login = ({ product }) => {
 
       <Flex mt="5px">
         <Text mr="5px">New to Electro Recyclr</Text>
-        <Text color="blue.500" fontWeight="semibold">
-          <Link to="/signup" replace>
-            Create new Account
-          </Link>
+        <Text color="blue.500" fontWeight="semibold" onClick={navigateToSignUp}>
+          Create new Account
         </Text>
       </Flex>
 
