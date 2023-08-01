@@ -13,10 +13,13 @@ const initFilterOptions = {
 const FilterProvider = ({ children }) => {
   const [filterOptions, setFilterOptions] = useState(initFilterOptions);
 
+  const productsQueries = `district=${filterOptions.selectedDistrict}&search=${filterOptions.search}&categoryId=${filterOptions.categoryId}&page=${filterOptions.page}&size=${filterOptions.size}`;
+
   const filterInfo = {
     filterOptions,
     setFilterOptions,
     initFilterOptions,
+    productsQueries,
   };
 
   return (

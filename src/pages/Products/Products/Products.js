@@ -11,12 +11,13 @@ import { useFilter } from "../../../contexts/FilterProvider";
 const Products = () => {
   // filter context
   const {
-    filterOptions: { selectedDistrict, categoryId, search, page, size },
+    filterOptions: { search, size },
+    productsQueries,
   } = useFilter();
   // query
-  const queries = `district=${selectedDistrict}&search=${search}&categoryId=${categoryId}&page=${page}&size=${size}`;
-  const { data, isLoading, error } = useQuery(["products", queries], () =>
-    onGetProducts(queries)
+  const { data, isLoading, error } = useQuery(
+    ["products", productsQueries],
+    () => onGetProducts(productsQueries)
   );
   // data
   const productList = data?.data?.products;

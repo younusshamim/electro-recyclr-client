@@ -60,7 +60,7 @@ const TableBody = ({ users, refetchUsers }) => {
             <MenuButton>
               <Button size="sm" w="90px">
                 <HStack>
-                  <Text>{status}</Text>
+                  <Text>{status || "User"}</Text>
                   <Box>
                     <IoIosArrowDown />
                   </Box>
