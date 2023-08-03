@@ -7,19 +7,22 @@ import { useParams } from "react-router-dom";
 import useProduct from "../../../hooks/useProduct";
 import BeatLoading from "../../../components/Loader/BeatLoading";
 import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
-import { useAuth } from "../../../contexts/AuthProvider";
 
 const Product = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { id } = useParams();
-  // data
-  const { data, isLoading, error } = useProduct(id);
-  const product = data?.data;
+  // product
+  const {
+    data: productData,
+    isLoading: productLoading,
+    error: productError,
+  } = useProduct(id);
+  const product = productData?.data;
 
-  return isLoading ? (
-    <BeatLoading h="65vh" />
-  ) : error ? (
-    <ErrorMessage error={error.message} h="65vh" />
+  return productLoading ? (
+    <BeatLoading h="100vh" />
+  ) : productError ? (
+    <ErrorMessage error={productError.message} h="100vh" />
   ) : (
     <Flex p="50px 120px 25px 120px">
       <Images product={product} />

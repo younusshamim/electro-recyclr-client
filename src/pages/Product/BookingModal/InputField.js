@@ -8,6 +8,7 @@ const InputField = ({
   type = "text",
   disabled = false,
   size = "sm",
+  ...rest
 }) => {
   return (
     <FormControl>
@@ -18,6 +19,7 @@ const InputField = ({
         placeholder={placeholder}
         type={type}
         size={size}
+        {...rest}
       />
     </FormControl>
   );

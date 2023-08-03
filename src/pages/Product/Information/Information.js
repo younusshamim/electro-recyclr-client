@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -16,6 +16,7 @@ import useCategories from "../../../hooks/useCategories";
 import { useAuth } from "../../../contexts/AuthProvider";
 import BeatLoading from "../../../components/Loader/BeatLoading";
 import { useLocation, useNavigate } from "react-router-dom";
+import useBookings from "../../../hooks/useBookings";
 
 const Information = ({ product, onOpen }) => {
   // category data
@@ -25,6 +26,15 @@ const Information = ({ product, onOpen }) => {
   const { loading: authLoading, userDetails } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  // bookings
+  const bookingPayload = {
+    userEmail: userDetails?.email,
+    productId: product._id,
+  };
+  const { data: bookingsData, isLoading: bookingsLoading } =
+    useBookings(bookingPayload);
+  const booked = bookingsData?.data[0];
+  const bookingBtnLoading = bookingsLoading || authLoading;
 
   return (
     <Flex direction="column" w="50%">
@@ -32,7 +42,6 @@ const Information = ({ product, onOpen }) => {
         {product.name}
       </Heading>
       <Text mb="4">{product.address + "," + product.district}</Text>
-
       <HStack mb="2px">
         <Text fontWeight="semibold">{product.sellerInfo.name}</Text>
         {product?.sellerInfo?.status !== "User" && (
@@ -53,16 +62,13 @@ const Information = ({ product, onOpen }) => {
           </Flex>
         )}
       </HStack>
-
       <Flex align="center" fontWeight="semibold">
         <Box mr="5px" fontSize="18px">
           <IoIosCall />
         </Box>
         <Text>{product.sellerInfo.mobile}</Text>
       </Flex>
-
       <Divider my="4" />
-
       <Grid templateColumns="repeat(3, 1fr)" mb="5">
         {!categoryLoading && (
           <Text>
@@ -75,16 +81,14 @@ const Information = ({ product, onOpen }) => {
         <Text>Posted: {timeDistance(product.postedTime)}</Text>
         <Text>Original Price: {product.orginalPrice} BDT</Text>
       </Grid>
-
       <Text fontSize="18px" fontWeight="semibold" mb="3">
         Price: {product.price} BDT
       </Text>
-
       <Text mb="5">Description: {product.description}</Text>
 
-      {authLoading ? (
-        <BeatLoading h="auto" w="fit-content" />
-      ) : (
+      {bookingBtnLoading && <BeatLoading h="auto" w="fit-content" />}
+
+      {!bookingBtnLoading && (
         <Button
           color="white"
           bg="black"
@@ -96,8 +100,9 @@ const Information = ({ product, onOpen }) => {
               ? onOpen
               : () => navigate("/login", { state: { targetUrl: location } })
           }
+          isDisabled={booked?.productId}
         >
-          Book Now
+          {booked?.productId ? "Booked" : "Book Now"}
         </Button>
       )}
     </Flex>
