@@ -18,45 +18,55 @@ import { useMutation } from "react-query";
 import { onUpdateUserStatus } from "../../../services/users-services";
 import toast from "react-hot-toast";
 import ImageNameCard from "../../components/ImageNameCard/ImageNameCard";
-import PrimaryBtn from "../../components/PrimaryBtn/PrimaryBtn";
+import useBookings from "../../../hooks/useBookings";
 
-const TableBody = ({ users, refetchUsers }) => {
-  const menuItems = [
-    { value: "User", option: "Make User" },
-    { value: "Verified", option: "Verified User" },
-    { value: "Admin", option: "Make Admin" },
-  ];
+const TableBody = ({ products }) => {
+  // const menuItems = [
+  //   { value: "User", option: "Make User" },
+  //   { value: "Verified", option: "Verified User" },
+  //   { value: "Admin", option: "Make Admin" },
+  // ];
 
-  const { mutate, error } = useMutation(onUpdateUserStatus, {
-    onSuccess: () => {
-      refetchUsers();
-      toast("User Updated Successfully.");
-    },
-    onError: (err) => {
-      toast(err.message);
-    },
-  });
+  // const { mutate, error } = useMutation(onUpdateUserStatus, {
+  //   onSuccess: () => {
+  //     toast("User Updated Successfully.");
+  //   },
+  //   onError: (err) => {
+  //     toast(err.message);
+  //   },
+  // });
 
-  return users.map(({ _id, status, name, mobile, img, email }) => {
+  return products.map((product) => {
+    const payload = { productId: product.Id };
+    const { isLoading: bookingsLoading, data: bookingsData } =
+      useBookings(payload);
+    const bookings = bookingsData?.data;
+
     return (
-      <Tr key={_id}>
+      <Tr key={product._id}>
         <CstmTd>
-          <ImageNameCard img={img} name={name} />
+          <ImageNameCard img={product.images[0]} name={product.name} />
         </CstmTd>
-        <CstmTd>{email}</CstmTd>
-        <CstmTd>{mobile}</CstmTd>
-
+        <CstmTd>{product.price}</CstmTd>
         <CstmTd>
+          {product.description.length > 20
+            ? product.description.slice(0, 20) + "..."
+            : product.description}
+        </CstmTd>
+
+        <CstmTd>{product.price}</CstmTd>
+
+        {/* <CstmTd>
           <Menu>
             <MenuButton>
-              <PrimaryBtn size="sm" w="90px">
+              <Button size="sm" w="90px">
                 <HStack>
                   <Text>{status || "User"}</Text>
                   <Box>
                     <IoIosArrowDown />
                   </Box>
                 </HStack>
-              </PrimaryBtn>
+              </Button>
             </MenuButton>
 
             <MenuList color="black" minW="130px">
@@ -74,7 +84,7 @@ const TableBody = ({ users, refetchUsers }) => {
               })}
             </MenuList>
           </Menu>
-        </CstmTd>
+        </CstmTd> */}
       </Tr>
     );
   });

@@ -29,8 +29,13 @@ const sidebarItem = [
     link: "",
     Icon: BsBookmarkCheck,
     subItems: [
-      { id: 1, name: "My Bookings", link: "/dashboard/my-bookings" },
-      { id: 2, name: "Purchase", link: "/dashboard/purchase" },
+      {
+        id: 1,
+        name: "Customer Bookings",
+        link: "/dashboard/customer-bookings",
+      },
+      { id: 2, name: "My Bookings", link: "/dashboard/my-bookings" },
+      { id: 3, name: "My Purchase", link: "/dashboard/purchase" },
     ],
   },
   // {

@@ -14,18 +14,22 @@ import InputField from "./InputField";
 import useMutateBooking from "../../../hooks/useMutateBooking";
 import { useAuth } from "../../../contexts/AuthProvider";
 import { toast } from "react-hot-toast";
+import { useQueryClient } from "react-query";
 
 const BookingModal = ({ isOpen, onClose, product }) => {
   const [contact, setContact] = useState(product.sellerInfo.mobile);
   const [meetingAddress, setMeetingAddress] = useState();
+  const { userDetails } = useAuth();
+  const queries = `userEmail=${userDetails.email}&productId=${product._id}`;
+  const queryClient = useQueryClient();
   // mutate booking
   const onSuccess = (data) => {
+    queryClient.invalidateQueries("getBookings");
     toast("Booked Successfully.");
     onClose();
   };
   const onError = (error) => toast(error.message);
-  const { mutate, isLoading } = useMutateBooking(onSuccess, onError);
-  const { userDetails } = useAuth();
+  const { mutate, isLoading } = useMutateBooking(onSuccess, onError, queries);
 
   const handleBooking = () => {
     const payload = {

@@ -7,17 +7,17 @@ import AuthProvider from "./contexts/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import { QueryClientProvider } from "react-query";
 import queryClient from "./config/queryClient/queryClient";
-import FilterProvider from "./contexts/FilterProvider";
+import ProductsFilterProvider from "./contexts/ProductsFilterProvider";
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <FilterProvider>
+          <ProductsFilterProvider>
             <RouterProvider router={Routes} />
             <Toaster />
-          </FilterProvider>
+          </ProductsFilterProvider>
         </AuthProvider>
       </QueryClientProvider>
     </ChakraProvider>

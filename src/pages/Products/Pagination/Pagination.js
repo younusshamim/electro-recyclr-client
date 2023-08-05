@@ -1,10 +1,10 @@
 import { Box, HStack } from "@chakra-ui/react";
 import React from "react";
-import { useFilter } from "../../../contexts/FilterProvider";
+import { useProductsFilter } from "../../../contexts/ProductsFilterProvider";
 
 const Pagination = ({ pages }) => {
   // filter contxt
-  const { filterOptions, setFilterOptions } = useFilter();
+  const { filterOptions, setFilterOptions } = useProductsFilter();
 
   return (
     <HStack justify="center" py="12">

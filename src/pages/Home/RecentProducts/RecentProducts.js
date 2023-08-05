@@ -1,22 +1,24 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { Flex, Grid, Heading, Stack, Button } from "@chakra-ui/react";
 import Product from "../../Shared/Product/Product";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import { onGetProducts } from "../../../services/product-services";
 import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
 import BeatLoading from "../../../components/Loader/BeatLoading";
-import { useFilter } from "../../../contexts/FilterProvider";
+import { useProductsFilter } from "../../../contexts/ProductsFilterProvider";
+import useProducts from "../../../hooks/useProducts";
 
 const RecentProducts = () => {
   // query
   const queries = `page=0&size=8`;
-  const { data, isLoading, error } = useQuery(["products", queries], () =>
-    onGetProducts(queries)
-  );
+  const { data, isLoading, error } = useProducts(queries);
   const productList = data?.data?.products;
   // filter context
-  const { setFilterOptions, initFilterOptions } = useFilter();
+  const { setFilterOptions, initFilterOptions } = useProductsFilter();
+
+  // useLayoutEffect(() => {
+  //   setFilterOptions(initFilterOptions);
+  // }, []);
 
   return (
     <Stack p={{ base: "20px 10px 10px 10px", md: "25px 120px" }}>

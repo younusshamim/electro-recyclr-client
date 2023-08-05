@@ -4,10 +4,9 @@ import Slider from "react-slick";
 import PrevArrow from "../../../components/PrevArrow/PrevArrow";
 import NextArrow from "../../../components/NextArrow/NextArrow";
 import { onGetCategories } from "../../../services/category-services";
-import { useQuery } from "react-query";
 import BeatLoading from "../../../components/Loader/BeatLoading";
 import useCategories from "../../../hooks/useCategories";
-import { useFilter } from "../../../contexts/FilterProvider";
+import { useProductsFilter } from "../../../contexts/ProductsFilterProvider";
 import { useNavigate } from "react-router-dom";
 
 const Categories = () => {
@@ -16,7 +15,7 @@ const Categories = () => {
   const { data: categoryData, isLoading } = useCategories();
   const categories = categoryData?.data;
   // filter context
-  const { filterOptions, setFilterOptions } = useFilter();
+  const { filterOptions, setFilterOptions } = useProductsFilter();
 
   const handleClick = (categoryId) => {
     setFilterOptions({ ...filterOptions, categoryId: categoryId });

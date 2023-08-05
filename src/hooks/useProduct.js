@@ -1,10 +1,10 @@
 import { useQuery, useQueryClient } from "react-query";
 import { onGetProduct } from "../services/product-services";
-import { useFilter } from "../contexts/FilterProvider";
+import { useProductsFilter } from "../contexts/ProductsFilterProvider";
 
 const useProduct = (id) => {
   const queryClient = useQueryClient();
-  const { productsQueries } = useFilter();
+  const { productsQueries } = useProductsFilter();
 
   const getInitData = () => {
     const products = queryClient.getQueryData(["products", productsQueries]);

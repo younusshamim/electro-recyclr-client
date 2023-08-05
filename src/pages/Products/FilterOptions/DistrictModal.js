@@ -12,12 +12,12 @@ import {
 import React, { useState } from "react";
 import districts from "../../../data/districts";
 import { BiSearch } from "react-icons/bi";
-import { useFilter } from "../../../contexts/FilterProvider";
+import { useProductsFilter } from "../../../contexts/ProductsFilterProvider";
 
 const DistrictModal = ({ isOpen, onClose }) => {
   const [districtList, setdistrictList] = useState(districts);
   // filter contxt
-  const { filterOptions, setFilterOptions } = useFilter();
+  const { filterOptions, setFilterOptions } = useProductsFilter();
 
   const handleSearch = (value) => {
     const newDistrictList = districts.filter((district) =>

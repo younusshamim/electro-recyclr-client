@@ -3,8 +3,8 @@ import { onSaveBooking } from "../services/bookings-services";
 
 const useMutateBooking = (onSuccess, onError) => {
   return useMutation(onSaveBooking, {
-    onSuccess: onSuccess,
     onError: onError,
+    onSuccess: onSuccess,
   });
 };
 

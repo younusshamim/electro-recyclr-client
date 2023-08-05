@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Flex, HStack, Heading, Input, Select, Stack } from "@chakra-ui/react";
-import BorderedStack from "../../../components/BorderedStack/BorderedStack";
+import BorderedStack from "../../components/BorderedStack/BorderedStack";
 import TableBody from "./TableBody";
 import SimpleTable from "../Shared/SimpleTable/SimpleTable";
 import { BsSearch } from "react-icons/bs";

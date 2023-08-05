@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BorderedStack from "../../../components/BorderedStack/BorderedStack";
+import BorderedStack from "../../components/BorderedStack/BorderedStack";
 import { Grid, HStack, Heading, Input } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput/TextInput";
@@ -11,11 +11,11 @@ import SelectImage from "../../components/SelectImage/SelectImage";
 import ImagePreview from "./ImagePreview";
 import { toast } from "react-hot-toast";
 import saveImageToImgBB from "../../../utils/saveImageToImgBB";
-import { useMutation, useQuery } from "react-query";
-import { onGetCategories } from "../../../services/category-services";
+import { useMutation,  } from "react-query";
 import { useAuth } from "../../../contexts/AuthProvider";
 import { onSaveProduct } from "../../../services/product-services";
 import { validateImgType } from "../../utils/validations";
+import useCategories from "../../../hooks/useCategories";
 
 const AddProduct = () => {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -36,10 +36,8 @@ const AddProduct = () => {
   };
 
   // query data
-  const { data: categoriesData, isLoading: categoriesLoading } = useQuery(
-    "getCategories",
-    onGetCategories
-  );
+  const { data: categoriesData, isLoading: categoriesLoading } =
+    useCategories();
   const categories = categoriesData?.data;
   const { mutate } = useMutation(onSaveProduct, { onSuccess, onError });
 

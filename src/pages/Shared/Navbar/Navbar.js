@@ -23,7 +23,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { useAuth } from "../../../contexts/AuthProvider";
 import BeatLoading from "../../../components/Loader/BeatLoading";
 import userImage from "../../../assets/user.png";
-import { useFilter } from "../../../contexts/FilterProvider";
+import { useProductsFilter } from "../../../contexts/ProductsFilterProvider";
 
 const Navbar = () => {
   const [searchField, setSearchField] = useState("");
@@ -31,7 +31,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-  const { filterOptions, setFilterOptions } = useFilter();
+  const { filterOptions, setFilterOptions } = useProductsFilter();
 
   const menuItems = [
     { id: 1, name: "Dashboard", icon: <AiOutlineUser /> },

@@ -1,11 +1,11 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
 
-const PrimaryBtn = ({ children, ...rest }) => {
+const PrimaryBtn = ({ children, w = "fit-content", ...rest }) => {
   return (
     <Button
       {...rest}
-      w="fit-content"
+      w={w}
       color="white"
       bg="primary.900"
       _hover={{ bg: "primary.800" }}

@@ -2,23 +2,19 @@ import { Grid, Heading, Stack, Text } from "@chakra-ui/react";
 import Product from "../../Shared/Product/Product";
 import FilterOptions from "../FilterOptions/FilterOptions";
 import Pagination from "../Pagination/Pagination";
-import { onGetProducts } from "../../../services/product-services";
-import { useQuery } from "react-query";
 import BeatLoading from "../../../components/Loader/BeatLoading";
 import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
-import { useFilter } from "../../../contexts/FilterProvider";
+import { useProductsFilter } from "../../../contexts/ProductsFilterProvider";
+import useProducts from "../../../hooks/useProducts";
 
 const Products = () => {
   // filter context
   const {
     filterOptions: { search, size },
     productsQueries,
-  } = useFilter();
+  } = useProductsFilter();
   // query
-  const { data, isLoading, error } = useQuery(
-    ["products", productsQueries],
-    () => onGetProducts(productsQueries)
-  );
+  const { data, isLoading, error } = useProducts(productsQueries);
   // data
   const productList = data?.data?.products;
   const count = data?.data?.count;

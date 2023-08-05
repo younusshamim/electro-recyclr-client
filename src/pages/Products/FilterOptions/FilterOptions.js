@@ -9,7 +9,7 @@ import {
 import { IoIosArrowDown } from "react-icons/io";
 import DistrictModal from "./DistrictModal";
 import useCategories from "../../../hooks/useCategories";
-import { useFilter } from "../../../contexts/FilterProvider";
+import { useProductsFilter } from "../../../contexts/ProductsFilterProvider";
 
 const FilterOptions = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -21,7 +21,7 @@ const FilterOptions = () => {
   } = useCategories();
   const categoryList = categoryData?.data;
   // filter contxt
-  const { filterOptions, setFilterOptions } = useFilter();
+  const { filterOptions, setFilterOptions } = useProductsFilter();
 
   if (categoryLoading || error) return;
 

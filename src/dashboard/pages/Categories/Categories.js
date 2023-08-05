@@ -1,5 +1,5 @@
 import React from "react";
-import BorderedStack from "../../../components/BorderedStack/BorderedStack";
+import BorderedStack from "../../components/BorderedStack/BorderedStack";
 import BeatLoading from "../../../components/Loader/BeatLoading";
 import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
 import NoDataFound from "../../../components/NoDataFound/NoDataFound";
