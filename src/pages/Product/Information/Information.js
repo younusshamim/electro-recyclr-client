@@ -19,6 +19,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useBookings from "../../../hooks/useBookings";
 
 const Information = ({ product, onOpen }) => {
+  const [randomLoadig, setRandomLoading] = useState(true);
+  const onSuccess = () => setRandomLoading(false);
+
   // category data
   const { data: categoryData, isLoading: categoryLoading } = useCategories();
   const categoryList = categoryData?.data;
@@ -31,10 +34,12 @@ const Information = ({ product, onOpen }) => {
     userEmail: userDetails?.email,
     productId: product._id,
   };
-  const { data: bookingsData, isLoading: bookingsLoading } =
-    useBookings(bookingPayload);
+  const { data: bookingsData, isLoading: bookingsLoading } = useBookings(
+    bookingPayload,
+    onSuccess
+  );
   const booked = bookingsData?.data[0];
-  const bookingBtnLoading = bookingsLoading || authLoading;
+  const bookingBtnLoading = bookingsLoading || authLoading || randomLoadig;
 
   return (
     <Flex direction="column" w="50%">
