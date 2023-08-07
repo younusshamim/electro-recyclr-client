@@ -5,10 +5,9 @@ import BeatLoading from "../../../components/Loader/BeatLoading";
 import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
 import NoDataFound from "../../../components/NoDataFound/NoDataFound";
 import SimpleTable from "../Shared/SimpleTable/SimpleTable";
-import TableBody from "./TableBody";
 import useProducts from "../../../hooks/useProducts";
 import { useAuth } from "../../../contexts/AuthProvider";
-import Product from "./Product";
+import ProductRow from "./ProductRow";
 
 const initFilter = {
   page: 0,
@@ -39,7 +38,7 @@ const MyProducts = () => {
       ) : (
         <SimpleTable theadData={theadData}>
           {products.map((product) => (
-            <Product product={product} key={product._id} />
+            <ProductRow product={product} key={product._id} />
           ))}
         </SimpleTable>
       )}

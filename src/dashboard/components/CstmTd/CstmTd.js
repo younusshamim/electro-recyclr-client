@@ -1,7 +1,7 @@
 import { Td } from "@chakra-ui/react";
 
-const CstmTd = ({ children }) => (
-  <Td py="10px" px="10px">
+const CstmTd = ({ children, ...rest }) => (
+  <Td py="10px" px="10px" {...rest}>
     {children}
   </Td>
 );

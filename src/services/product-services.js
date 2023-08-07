@@ -12,3 +12,7 @@ export const onGetProduct = async (id) => {
 export const onSaveProduct = async (data) => {
   return await axios.post(`${baseUrl}/products`, data);
 };
+
+export const onUpdateProductStatus = async (_id) => {
+  return await axios.put(`${baseUrl}/products/status/${_id}`);
+};

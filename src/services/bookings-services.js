@@ -8,3 +8,7 @@ export const onSaveBooking = async (data) => {
 export const onGetBookings = async (queries) => {
   return await axios.get(`${baseUrl}/bookings?${queries}`);
 };
+
+export const onUpdateBookingStatus = async (_id) => {
+  return await axios.put(`${baseUrl}/bookings/status/${_id}`);
+};
