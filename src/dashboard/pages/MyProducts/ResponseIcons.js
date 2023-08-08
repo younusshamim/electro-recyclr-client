@@ -7,7 +7,7 @@ const ResponseIcons = ({ bookingsLoading, bookings }) => {
   return bookingsLoading ? (
     <BeatLoading h="auto" w="auto" />
   ) : bookings.length === 0 ? (
-    "No Response"
+    "No Bookings"
   ) : (
     <Flex alignItems="center" cursor="pointer">
       {bookings

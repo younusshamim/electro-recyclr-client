@@ -14,6 +14,8 @@ import Profile from "../dashboard/pages/Profile/Profile";
 import Users from "../dashboard/pages/Users/Users";
 import Categories from "../dashboard/pages/Categories/Categories";
 import AddProduct from "../dashboard/pages/AddProduct/AddProduct";
+import CustomerBookings from "../dashboard/pages/CustomerBookings/CustomerBookings";
+import MyBookings from "../dashboard/pages/MyBookings/MyBookings";
 
 const Router = createBrowserRouter([
   {
@@ -61,6 +63,14 @@ const Router = createBrowserRouter([
       {
         path: "/dashboard/add-product",
         element: <AddProduct />,
+      },
+      {
+        path: "/dashboard/customer-bookings",
+        element: <CustomerBookings />,
+      },
+      {
+        path: "/dashboard/my-bookings",
+        element: <MyBookings />,
       },
       {
         path: "/dashboard/categories",
