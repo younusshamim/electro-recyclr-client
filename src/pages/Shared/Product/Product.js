@@ -17,7 +17,13 @@ const Product = ({ product }) => {
   return (
     <Link to={`/products/${product._id}`}>
       <Stack cursor="pointer" className={styles.singleProduct}>
-        <Box overflow="hidden" borderRadius="xl" p="10px" bg="gray.100">
+        <Box
+          overflow="hidden"
+          borderRadius="xl"
+          p="10px"
+          bg="gray.100"
+          position="relative"
+        >
           <Image
             w="100%"
             h="190px"
@@ -26,7 +32,11 @@ const Product = ({ product }) => {
             alt={product?.name}
             className={styles.productImage}
             transition="0.5s"
+            opacity={product.isSold && "0.7"}
           />
+          <Heading position="absolute" margin="auto">
+            SOLD OUT
+          </Heading>
         </Box>
 
         <Box>

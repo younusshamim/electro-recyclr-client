@@ -42,7 +42,7 @@ const ProductRow = ({ product }) => {
 
   // functions
   const toggleBookingShow = () => {
-    if (bookings.length) setBookingsShow(!bookingsShow);
+    if (bookings?.length) setBookingsShow(!bookingsShow);
   };
 
   const handleProductStatus = (e) => {

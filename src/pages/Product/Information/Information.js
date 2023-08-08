@@ -105,9 +105,13 @@ const Information = ({ product, onOpen }) => {
               ? onOpen
               : () => navigate("/login", { state: { targetUrl: location } })
           }
-          isDisabled={booked?.productId}
+          isDisabled={booked?.productId || product?.isSold}
         >
-          {booked?.productId ? "Booked" : "Book Now"}
+          {product?.isSold === true
+            ? "Sold Out"
+            : booked?.productId
+            ? "Booked"
+            : "Book Now"}
         </Button>
       )}
     </Flex>
