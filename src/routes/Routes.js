@@ -16,6 +16,7 @@ import Categories from "../dashboard/pages/Categories/Categories";
 import AddProduct from "../dashboard/pages/AddProduct/AddProduct";
 import CustomerBookings from "../dashboard/pages/CustomerBookings/CustomerBookings";
 import MyBookings from "../dashboard/pages/MyBookings/MyBookings";
+import AdminRoute from "./AdminRoute";
 
 const Router = createBrowserRouter([
   {
@@ -74,11 +75,19 @@ const Router = createBrowserRouter([
       },
       {
         path: "/dashboard/categories",
-        element: <Categories />,
+        element: (
+          <AdminRoute>
+            <Categories />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/users",
-        element: <Users />,
+        element: (
+          <AdminRoute>
+            <Users />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/profile",

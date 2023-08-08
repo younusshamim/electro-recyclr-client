@@ -1,14 +1,22 @@
 import { Input } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { onSaveUser } from "../../services/users-services";
 import { useMutation } from "react-query";
+import useToken from "../../hooks/useToken";
 
 const GoogleLogin = ({ location }) => {
+  const [loginUserEmail, setLoginUserEmail] = useState("");
+  const { Token } = useToken(loginUserEmail);
+
   const { user, googleSignIn, loading } = useAuth();
   const navigate = useNavigate();
   const targetUrl = location?.state?.targetUrl?.pathname || "/dashboard";
+
+  if (Token) {
+    navigate(targetUrl, { replace: true });
+  }
 
   const { mutate } = useMutation(onSaveUser);
 
@@ -17,8 +25,9 @@ const GoogleLogin = ({ location }) => {
       const {
         user: { email, displayName, photoURL },
       } = await googleSignIn();
+      setLoginUserEmail(email);
       mutate({ name: displayName, email, img: photoURL });
-      navigate(targetUrl, { replace: true });
+      // navigate(targetUrl, { replace: true });
     } catch (err) {
       console.log(err.message);
     }

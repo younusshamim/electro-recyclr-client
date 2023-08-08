@@ -5,8 +5,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import GoogleLogin from "../../components/GoogleLogin/GoogleLogin";
 import TextInput from "../../dashboard/components/TextInput/TextInput";
+import useToken from "../../hooks/useToken";
 
-const Login = ({ product }) => {
+const Login = () => {
+  const [loginUserEmail, setLoginUserEmail] = useState("");
+  const { Token } = useToken(loginUserEmail);
+
   const handleForm = useForm();
   const {
     handleSubmit,
@@ -25,10 +29,15 @@ const Login = ({ product }) => {
   let location = useLocation();
   const targetUrl = location.state?.targetUrl?.pathname || "/dashboard";
 
+  if (Token) {
+    navigate(targetUrl, { replace: true });
+  }
+
   const handleSignIn = async (data) => {
     try {
       await signIn(data.email, data.password);
-      navigate(targetUrl, { replace: true });
+      setLoginUserEmail(data.email);
+      // navigate(targetUrl, { replace: true });
     } catch (error) {
       setLoginError(error.message);
       setAuthLoading(false);

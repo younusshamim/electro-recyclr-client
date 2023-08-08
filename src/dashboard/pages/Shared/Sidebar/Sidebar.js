@@ -13,9 +13,14 @@ import SidebarItem from "./SidebarItem";
 import { Link } from "react-router-dom";
 import userImage from "../../../../assets/user.png";
 import { useAuth } from "../../../../contexts/AuthProvider";
+import useAdmin from "../../../../hooks/useAdmin";
 
 const Sidebar = () => {
   const { userDetails } = useAuth();
+  const { data: adminData, isLoading: adminLoading } = useAdmin(
+    userDetails?.email
+  );
+  const isAdmin = adminData?.data?.isAdmin;
 
   return (
     <Flex
@@ -35,9 +40,15 @@ const Sidebar = () => {
 
       <VStack align="flex-start">
         <Accordion allowMultiple w="full">
-          {sidebarItem.map((sidebarItem, i) => (
-            <SidebarItem sidebarItem={sidebarItem} key={sidebarItem.name + i} />
-          ))}
+          {sidebarItem.map(
+            (sidebarItem, i) =>
+              (isAdmin || !sidebarItem.requiresAdmin) && (
+                <SidebarItem
+                  sidebarItem={sidebarItem}
+                  key={sidebarItem.name + i}
+                />
+              )
+          )}
         </Accordion>
       </VStack>
 

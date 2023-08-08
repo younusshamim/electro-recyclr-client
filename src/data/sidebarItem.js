@@ -29,12 +29,12 @@ const sidebarItem = [
     link: "",
     Icon: BsBookmarkCheck,
     subItems: [
+      { id: 2, name: "My Bookings", link: "/dashboard/my-bookings" },
       {
         id: 1,
         name: "Customer Bookings",
         link: "/dashboard/customer-bookings",
       },
-      { id: 2, name: "My Bookings", link: "/dashboard/my-bookings" },
     ],
   },
   // {
@@ -50,6 +50,7 @@ const sidebarItem = [
     link: "/dashboard/categories",
     Icon: BiCategoryAlt,
     subItems: [],
+    requiresAdmin: true,
   },
   {
     id: 6,
@@ -57,6 +58,7 @@ const sidebarItem = [
     link: "/dashboard/users",
     Icon: FiUsers,
     subItems: [],
+    requiresAdmin: true,
   },
 ];
 

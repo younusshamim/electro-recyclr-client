@@ -25,20 +25,22 @@ const MyProducts = () => {
 
   return (
     <BorderedStack>
-      <Heading fontSize="20px" mb="5">
-        Products Posted For Sale
-      </Heading>
+      {products?.length > 0 && (
+        <Heading fontSize="20px" mb="5">
+          Products Posted For Sale
+        </Heading>
+      )}
 
       {isLoading ? (
         <BeatLoading />
       ) : error ? (
         <ErrorMessage error={error?.message} />
-      ) : products.length === 0 ? (
+      ) : products?.length === 0 ? (
         <NoDataFound msg="No product posted yet!" />
       ) : (
         <SimpleTable theadData={theadData}>
-          {products.map((product) => (
-            <ProductRow product={product} key={product._id} />
+          {products.map((product, i) => (
+            <ProductRow product={product} key={i} />
           ))}
         </SimpleTable>
       )}

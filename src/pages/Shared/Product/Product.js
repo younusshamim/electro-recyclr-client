@@ -23,6 +23,8 @@ const Product = ({ product }) => {
           p="10px"
           bg="gray.100"
           position="relative"
+          alignItems="center"
+          justifyContent="center"
         >
           <Image
             w="100%"
@@ -34,9 +36,22 @@ const Product = ({ product }) => {
             transition="0.5s"
             opacity={product.isSold && "0.7"}
           />
-          <Heading position="absolute" margin="auto">
-            SOLD OUT
-          </Heading>
+          {product.isSold && (
+            <Heading
+              width="100px"
+              fontSize="14px"
+              position="absolute"
+              bottom="50"
+              left="0"
+              alignSelf="center"
+              bg="gray.100"
+              p="2"
+              textAlign="center"
+              borderRadius="md"
+            >
+              SOLD OUT
+            </Heading>
+          )}
         </Box>
 
         <Box>

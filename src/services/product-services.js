@@ -1,18 +1,17 @@
-import axios from "axios";
-import baseUrl from "./baseUrl";
+import api from "./api";
 
 export const onGetProducts = async (queries) => {
-  return await axios.get(`${baseUrl}/products?${queries}`);
+  return await api.get(`/products?${queries}`);
 };
 
 export const onGetProduct = async (id) => {
-  return await axios.get(`${baseUrl}/products/${id}`);
+  return await api.get(`/products/${id}`);
 };
 
 export const onSaveProduct = async (data) => {
-  return await axios.post(`${baseUrl}/products`, data);
+  return await api.post(`/products`, data);
 };
 
 export const onUpdateProductStatus = async (_id) => {
-  return await axios.put(`${baseUrl}/products/status/${_id}`);
+  return await api.put(`/products/status/${_id}`);
 };

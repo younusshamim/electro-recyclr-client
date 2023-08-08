@@ -8,8 +8,12 @@ import toast from "react-hot-toast";
 import GoogleLogin from "../../components/GoogleLogin/GoogleLogin";
 import { onSaveUser } from "../../services/users-services";
 import TextInput from "../../dashboard/components/TextInput/TextInput";
+import useToken from "../../hooks/useToken";
 
-const SignUp = ({ product }) => {
+const SignUp = () => {
+  const [loginUserEmail, setLoginUserEmail] = useState("");
+  const { Token } = useToken(loginUserEmail);
+
   const handleForm = useForm();
   const {
     handleSubmit,
@@ -35,14 +39,19 @@ const SignUp = ({ product }) => {
   const { mutate, isLoading, isError, isSuccess, error, data } =
     useMutation(onSaveUser);
 
+  if (Token) {
+    navigate(targetUrl, { replace: true });
+  }
+
   const handleSignUp = async (data) => {
     try {
       mutate(data);
       await createUser(data.email, data.password);
       await updateUser({ displayName: data.name });
+      setLoginUserEmail(data.email);
       reset();
       toast("User Created Successfully.");
-      navigate(targetUrl, { replace: true });
+      // navigate(targetUrl, { replace: true });
     } catch (err) {
       setSignUPError(err.message);
     } finally {

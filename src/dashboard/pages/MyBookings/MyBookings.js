@@ -23,9 +23,11 @@ const MyBookings = () => {
 
   return (
     <BorderedStack>
-      <Heading fontSize="20px" mb="5">
-        My booked Products
-      </Heading>
+      {bookings?.length > 0 && (
+        <Heading fontSize="20px" mb="5">
+          My booked Products
+        </Heading>
+      )}
 
       {bookingsLoading ? (
         <BeatLoading />

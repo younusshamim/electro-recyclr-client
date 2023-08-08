@@ -1,14 +1,13 @@
-import axios from "axios";
-import baseUrl from "./baseUrl";
+import api from "./api";
 
 export const onSaveBooking = async (data) => {
-  return await axios.post(`${baseUrl}/bookings`, data);
+  return await api.post(`/bookings`, data);
 };
 
 export const onGetBookings = async (queries) => {
-  return await axios.get(`${baseUrl}/bookings?${queries}`);
+  return await api.get(`/bookings?${queries}`);
 };
 
 export const onUpdateBookingStatus = async (_id) => {
-  return await axios.put(`${baseUrl}/bookings/status/${_id}`);
+  return await api.put(`/bookings/status/${_id}`);
 };

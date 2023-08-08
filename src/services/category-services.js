@@ -1,6 +1,5 @@
-import axios from "axios";
-import baseUrl from "./baseUrl";
+import api from "./api";
 
 export const onGetCategories = async () => {
-  return await axios.get(`${baseUrl}/categories`);
+  return await api.get(`/categories`);
 };
