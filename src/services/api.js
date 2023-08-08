@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  // baseURL: "https://electro-recyclr-server.vercel.app/",
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://electro-recyclr-server.vercel.app/",
+  // baseURL: "http://localhost:5000/",
   //   timeout: 10000,
 });
 
