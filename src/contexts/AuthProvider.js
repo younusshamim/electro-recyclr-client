@@ -27,6 +27,7 @@ const AuthProvider = ({ children }) => {
       setUserDetails(data);
     } catch (err) {
       console.log(err);
+      setUserDetails(null);
     }
   };
 

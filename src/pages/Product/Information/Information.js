@@ -29,10 +29,12 @@ const Information = ({ product, onOpen }) => {
   const { loading: authLoading, userDetails } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
   // bookings
   const bookingPayload = {
     userEmail: userDetails?.email,
     productId: product._id,
+    required: true,
   };
   const { data: bookingsData, isLoading: bookingsLoading } = useBookings(
     bookingPayload,
@@ -40,6 +42,9 @@ const Information = ({ product, onOpen }) => {
   );
   const booked = bookingsData?.data[0];
   const bookingBtnLoading = bookingsLoading || authLoading || randomLoadig;
+
+  console.log({ booked });
+  console.log({ userDetails });
 
   return (
     <Flex direction="column" w="50%">
