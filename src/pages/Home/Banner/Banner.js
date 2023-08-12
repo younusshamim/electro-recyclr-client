@@ -12,11 +12,12 @@ const Banner = () => {
       justify="center"
       bg="orange.50"
       h="400px"
-      m="40px 120px 25px 120px"
+      m={{ base: "25px 10px 25px 10px", md: "40px 120px 25px 120px" }}
+      p="5"
       borderRadius="2xl"
       textAlign="center"
     >
-      <Heading fontSize="40px" mb="10px">
+      <Heading fontSize={{ base: "28px", md: "40px" }} mb="10px">
         Reduce, Reuse, and Revive with <br /> ElectroRecyclr
       </Heading>
       <Text fontSize="18px" mb="5">
@@ -26,7 +27,7 @@ const Banner = () => {
       <Button
         textTransform="uppercase"
         fontWeight="bold"
-        p="25px 20px"
+        p={{ base: "20px 15px", md: "25px 20px" }}
         color="white"
         bg="black"
         _hover={{ bg: "black" }}
