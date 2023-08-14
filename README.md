@@ -8,15 +8,13 @@
 
 <hr/>
 
-
 ### Client
 - Client Code: https://github.com/younusshamim/electro-recyclr-client/
-- Client Live: electro-recyclr-client.vercel.app
+- Client Live: [electro-recyclr-client.vercel.app](http://electro-recyclr-client.vercel.app "electro-recyclr-client.vercel.app")
   
 ### Server
 - Server Code: https://github.com/younusshamim/electro-recyclr-server
-- Server Live: electro-recyclr-server.vercel.app
-
+- Server Live: [electro-recyclr-server.vercel.app](http://electro-recyclr-server.vercel.app "electro-recyclr-server.vercel.app")
 
 <hr/>
 
