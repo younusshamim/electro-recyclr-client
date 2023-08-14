@@ -1,16 +1,18 @@
-## Admin User:
-Email: younusshamim.bd@gmail.com
+### Admin User:
+Email: younusshamim.bd@gmail.com \n
 Password: 123456
 
-## Normal User: 
-Email: jahin@gmail.com
+### Normal User: 
+Email: jahin@gmail.com \n
 Passsword: 123456
 
-### ElectroRecyclr is a platform where users can buy and sell used products.
+<hr/>
+
+ElectroRecyclr is a platform where users can buy and sell used products.
 There are separate user management roles: admin, regular user, and
 verified user. ElectroRecyclr is one of my best project.
 
-### Technology: 
+Technology: 
 React, Node, Express, MongoDB, Chakra UI, Firebase
 authentication, JWT Token, Context API, React Query, react-hook-form, etc.
 
