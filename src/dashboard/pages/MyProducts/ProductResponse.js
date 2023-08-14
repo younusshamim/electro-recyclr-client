@@ -41,7 +41,7 @@ const ProductResponse = ({
                     w="40px"
                     gap={5}
                   />
-                  <Text>{booking?.contact || "-"}</Text>
+                  <Text ml={{ base: "5", md: '0' }}>{booking?.contact || "-"}</Text>
                   <Text>{booking?.userEmail || "-"}</Text>
                   <Text fontSize="14px">
                     {dateTimeFormat(utcToLocalTime(booking?.postedTime))}

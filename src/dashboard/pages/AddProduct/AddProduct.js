@@ -11,7 +11,7 @@ import SelectImage from "../../components/SelectImage/SelectImage";
 import ImagePreview from "./ImagePreview";
 import { toast } from "react-hot-toast";
 import saveImageToImgBB from "../../../utils/saveImageToImgBB";
-import { useMutation,  } from "react-query";
+import { useMutation, } from "react-query";
 import { useAuth } from "../../../contexts/AuthProvider";
 import { onSaveProduct } from "../../../services/product-services";
 import { validateImgType } from "../../utils/validations";
@@ -109,7 +109,7 @@ const AddProduct = () => {
       </Heading>
 
       <form onSubmit={handleSubmit(handleAddProduct)}>
-        <Grid templateColumns={{base:"repeat(1, 1fr)", md:"repeat(4, 1fr)"}} gap={4}>
+        <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(4, 1fr)" }} gap={4}>
           <TextInput
             label="Product Name"
             name="name"
@@ -196,15 +196,17 @@ const AddProduct = () => {
             handleChange={handleImgChange}
             btnText="Upload"
           />
-
-          <HStack gridColumn="2/5">
-            <ImagePreview
-              selectedImages={selectedImages}
-              handleFileRemove={handleFileRemove}
-              handleChange={handleImgChange}
-            />
-          </HStack>
         </Grid>
+
+        <HStack flexWrap='wrap' mt="5"
+          alignItem="center"
+          justify={{ base: 'flex-start', md: "center" }}>
+          <ImagePreview
+            selectedImages={selectedImages}
+            handleFileRemove={handleFileRemove}
+            handleChange={handleImgChange}
+          />
+        </HStack>
 
         <HStack justify="center">
           <Input
@@ -219,7 +221,7 @@ const AddProduct = () => {
           />
         </HStack>
       </form>
-    </BorderedStack>
+    </BorderedStack >
   );
 };
 

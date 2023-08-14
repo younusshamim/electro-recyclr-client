@@ -27,7 +27,7 @@ const MyProducts = () => {
     <BorderedStack>
       {products?.length > 0 && (
         <Heading fontSize="20px" mb="5">
-          Products Posted For Sale
+          Products For Sale
         </Heading>
       )}
 

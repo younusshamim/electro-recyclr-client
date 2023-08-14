@@ -8,7 +8,7 @@ const SimpleTable = ({ theadData, children, ...rest }) => {
         <Thead>
           <Tr>
             {theadData.map((el, i) => (
-              <Th key={el + i}>{el}</Th>
+              <Th key={el + i} minW={i === 0 && '180px'}>{el}</Th>
             ))}
           </Tr>
         </Thead>

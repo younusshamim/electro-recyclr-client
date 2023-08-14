@@ -7,16 +7,21 @@ import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
 import NoDataFound from "../../../components/NoDataFound/NoDataFound";
 import SimpleTable from "../Shared/SimpleTable/SimpleTable";
 import BookingRow from "./BookingRow";
+import { useState } from 'react'
 
 const MyBookings = () => {
+  const [initialLoading, setInitialLoading] = useState(true);
   const { userDetails } = useAuth();
   const payload = { userEmail: userDetails?.email };
   // query
+  const onSuccess = () => {
+    setInitialLoading(false)
+  }
   const {
     isLoading: bookingsLoading,
     data: bookingsData,
     error,
-  } = useBookings(payload);
+  } = useBookings(payload, onSuccess);
   const bookings = bookingsData?.data;
   // data
   const theadData = ["Product", "price", "Description", "Time", "Status"];
@@ -25,11 +30,11 @@ const MyBookings = () => {
     <BorderedStack>
       {bookings?.length > 0 && (
         <Heading fontSize="20px" mb="5">
-          My booked Products
+          My Booked Products
         </Heading>
       )}
 
-      {bookingsLoading ? (
+      {bookingsLoading || initialLoading ? (
         <BeatLoading />
       ) : error ? (
         <ErrorMessage error={error?.message} />

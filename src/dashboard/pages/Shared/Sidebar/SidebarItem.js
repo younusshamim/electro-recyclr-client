@@ -6,18 +6,20 @@ import {
   Box,
   HStack,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { GoDash } from "react-icons/go";
 
-const SidebarItem = ({ onClose,sidebarItem: { Icon, name, link, subItems } }) => {
+const SidebarItem = ({ onClose, sidebarItem: { Icon, name, link, subItems } }) => {
   let { pathname } = useLocation();
+  const [isLargerThanMd] = useMediaQuery('(min-width: 768px)')
 
   return (
     <AccordionItem border="none" mb="1">
       {link ? (
-        <Link to={link} onClick={()=> link && onClose()}>
+        <Link to={link} onClick={() => link && !isLargerThanMd && onClose()}>
           <AccordionButton
             borderRadius="sm"
             transition="0.3s"
@@ -81,7 +83,7 @@ const SidebarItem = ({ onClose,sidebarItem: { Icon, name, link, subItems } }) =>
         <AccordionPanel py="2">
           {subItems?.map((sub) =>
             sub.link ? (
-              <Link to={sub.link} key={sub.id}  onClick={()=> sub.link && onClose()}>
+              <Link to={sub.link} key={sub.id} onClick={() => sub.link && !isLargerThanMd && onClose()}>
                 <HStack
                   color={sub.link === pathname ? "primary.900" : "gray.500"}
                   pl="6"
