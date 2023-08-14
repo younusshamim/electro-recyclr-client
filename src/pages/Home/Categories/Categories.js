@@ -23,7 +23,7 @@ const Categories = () => {
   };
 
   return (
-    <Stack p={{ base: "10px 5px", md: "25px 120px" }}>
+    <Stack m={{ base: "10px 10px", md: "25px 120px" }}>
       {/* <Heading
         fontWeight="semibold"
         mb={{ base: "10px", md: "15px" }}
@@ -36,7 +36,7 @@ const Categories = () => {
       {isLoading ? (
         <BeatLoading h="0" size={10} />
       ) : (
-        <Grid templateColumns="repeat(9, 1fr)" gap="4">
+        <Grid templateColumns={{base:"repeat(4, 1fr)", md:"repeat(9, 1fr)"}} gap={{base:"2", md:"4"}}>
           {categories?.map((item) => (
             <Stack
               key={item._id}
@@ -55,8 +55,8 @@ const Categories = () => {
               <Image
                 src={item.img}
                 alt={item.name}
-                width="70px"
-                height="70px"
+                width={{base:'40px',md:"70px"}}
+                height={{base:'40px',md:"70px"}}
                 objectFit="cover"
               />
 

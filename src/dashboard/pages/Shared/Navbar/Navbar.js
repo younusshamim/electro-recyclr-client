@@ -18,6 +18,7 @@ import { FiLogOut } from "react-icons/fi";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthProvider";
 import getTitle from "../../../utils/getTitle";
+import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
   const { logOut } = useAuth();
@@ -51,7 +52,9 @@ const Navbar = () => {
   };
 
   return (
-    <Flex justify="space-between" mb="5">
+    <Flex justify="space-between" mb="5" w="100%">
+      <MobileMenu />
+
       <Heading fontSize="22px">{title}</Heading>
 
       <HStack>

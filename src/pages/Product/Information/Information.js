@@ -43,11 +43,8 @@ const Information = ({ product, onOpen }) => {
   const booked = bookingsData?.data[0];
   const bookingBtnLoading = bookingsLoading || authLoading || randomLoadig;
 
-  console.log({ booked });
-  console.log({ userDetails });
-
   return (
-    <Flex direction="column" w="50%">
+    <Flex direction="column" w={{base:"100%", md:"50%"}}>
       <Heading fontSize="24px" mb="1">
         {product.name}
       </Heading>
@@ -89,7 +86,7 @@ const Information = ({ product, onOpen }) => {
         <Text>Condition: {product.condition}</Text>
         <Text>Year of Purchase: {product.yearOfPurchase}</Text>
         <Text>Posted: {timeDistance(product.postedTime)}</Text>
-        <Text>Original Price: {product.orginalPrice} BDT</Text>
+        <Text>Original Price: {product.OrginalPrice} BDT</Text>
       </Grid>
       <Text fontSize="18px" fontWeight="semibold" mb="3">
         Price: {product.price} BDT

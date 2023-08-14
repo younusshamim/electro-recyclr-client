@@ -3,7 +3,7 @@ import React from "react";
 
 const SimpleTable = ({ theadData, children, ...rest }) => {
   return (
-    <Stack {...rest}>
+    <Stack {...rest} overflow="auto">
       <Table variant="simple" className="SimpleTable">
         <Thead>
           <Tr>

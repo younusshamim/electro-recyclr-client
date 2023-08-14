@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useBookings from "../../../hooks/useBookings";
-import { Collapse, HStack, Text, Tr } from "@chakra-ui/react";
+import { Collapse, Flex, HStack, Text, Tr } from "@chakra-ui/react";
 import CstmTd from "../../components/CstmTd/CstmTd";
 import ImageNameCard from "../../components/ImageNameCard/ImageNameCard";
 import ResponseIcons from "./ResponseIcons";

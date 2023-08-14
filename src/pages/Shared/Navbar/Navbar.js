@@ -72,7 +72,7 @@ const Navbar = () => {
     >
       <Link to="/">
         <Flex
-          fontSize={{ base: "20px", md: "26px" }}
+          fontSize={{ base: "22px", md: "26px" }}
           fontWeight="bold"
           cursor="pointer"
         >

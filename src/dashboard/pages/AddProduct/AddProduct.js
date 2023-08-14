@@ -109,7 +109,7 @@ const AddProduct = () => {
       </Heading>
 
       <form onSubmit={handleSubmit(handleAddProduct)}>
-        <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+        <Grid templateColumns={{base:"repeat(1, 1fr)", md:"repeat(4, 1fr)"}} gap={4}>
           <TextInput
             label="Product Name"
             name="name"

@@ -24,7 +24,7 @@ const Product = () => {
   ) : productError ? (
     <ErrorMessage error={productError.message} h="100vh" />
   ) : (
-    <Flex p="50px 120px 25px 120px">
+    <Flex p={{base:"50px 10px 25px 10px",md:"50px 10px 25px 10px"}} flexDirection={{base:'column', md:'row'}}>
       <Images product={product} />
       <Information product={product} onOpen={onOpen} />
       {isOpen && (

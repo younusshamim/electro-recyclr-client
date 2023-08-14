@@ -21,7 +21,7 @@ const Products = () => {
   const pages = Math.ceil(count / size);
 
   return (
-    <Stack p="50px 120px 25px 120px">
+    <Stack p={{base:"50px 10px 25px 10px", md:"50px 120px 25px 120px"}}>
       <FilterOptions />
 
       {search && (

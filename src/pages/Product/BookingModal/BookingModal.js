@@ -55,7 +55,7 @@ const BookingModal = ({ isOpen, onClose, product }) => {
         <ModalCloseButton />
 
         <ModalBody>
-          <Grid templateColumns="repeat(2, 1fr)" gap={5}>
+          <Grid templateColumns={{base:"repeat(1, 1fr)", md:"repeat(2, 1fr)"}} gap={5}>
             <InputField label="Name" value="Md. Younus" disabled={true} />
             <InputField
               label="Email"

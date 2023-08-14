@@ -17,7 +17,7 @@ const Banner = () => {
       borderRadius="2xl"
       textAlign="center"
     >
-      <Heading fontSize={{ base: "28px", md: "40px" }} mb="10px">
+      <Heading fontSize={{ base: "32px", md: "40px" }} mb="10px">
         Reduce, Reuse, and Revive with <br /> ElectroRecyclr
       </Heading>
       <Text fontSize="18px" mb="5">
@@ -27,7 +27,8 @@ const Banner = () => {
       <Button
         textTransform="uppercase"
         fontWeight="bold"
-        p={{ base: "20px 15px", md: "25px 20px" }}
+        p={"25px 20px" }
+        fontSize={{ base: "14px", md: "16px" }}
         color="white"
         bg="black"
         _hover={{ bg: "black" }}

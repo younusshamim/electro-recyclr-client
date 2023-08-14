@@ -7,8 +7,14 @@ import { Flex } from "@chakra-ui/react";
 const DashboardMain = () => {
   return (
     <Flex>
-      <Sidebar />
-      <Flex direction="column" p="5" w="calc(100% - 250px)" ml="250px">
+      <Sidebar display={{base:'none', md:'flex'}}/>
+
+      <Flex 
+        direction="column"
+        p={{base:"20px 10px", md:"5" }}
+        w={{base:"100%", md:"calc(100% - 250px)"}} 
+        ml={{ md:"250px"}}
+      >
         <Navbar />
         <Outlet />
       </Flex>

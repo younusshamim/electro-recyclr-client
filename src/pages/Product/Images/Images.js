@@ -5,7 +5,7 @@ const Images = ({ product }) => {
   const [displayImage, setdisplayImage] = useState(product.images[0]);
 
   return (
-    <Flex direction="column" w="50%" mr="5">
+    <Flex direction="column" w={{base:"100%", md:"50%"}} mr="5" mb={{base:'10'}}>
       <Box mx="auto">
         <Image
           src={displayImage}

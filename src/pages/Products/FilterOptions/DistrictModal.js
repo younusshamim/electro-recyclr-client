@@ -46,7 +46,7 @@ const DistrictModal = ({ isOpen, onClose }) => {
         </ModalHeader>
 
         <ModalBody pt="70px">
-          <Grid templateColumns="repeat(4, 1fr)" columnGap="8" rowGap="3">
+          <Grid templateColumns={{base:"repeat(2, 1fr)", md:"repeat(4, 1fr)"}} columnGap="8" rowGap="3">
             {districtList.map((district) => (
               <Box
                 fontSize="15px"

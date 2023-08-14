@@ -15,7 +15,7 @@ import userImage from "../../../../assets/user.png";
 import { useAuth } from "../../../../contexts/AuthProvider";
 import useAdmin from "../../../../hooks/useAdmin";
 
-const Sidebar = () => {
+const Sidebar = ({onClose, ...rest }) => {
   const { userDetails } = useAuth();
   const { data: adminData, isLoading: adminLoading } = useAdmin(
     userDetails?.email
@@ -31,6 +31,7 @@ const Sidebar = () => {
       h="100vh"
       p="5"
       position="fixed"
+      {...rest}
     >
       <Link to="/">
         <Heading color="black" fontSize="24px" fontWeight="bold" mb="8">
@@ -46,6 +47,7 @@ const Sidebar = () => {
                 <SidebarItem
                   sidebarItem={sidebarItem}
                   key={sidebarItem.name + i}
+                  onClose={onClose}
                 />
               )
           )}

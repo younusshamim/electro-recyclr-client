@@ -9,17 +9,18 @@ const PostYourAdd = () => {
   return (
     <HStack
       p="50px 10px"
-      m="25px 120px"
+      m={{base:"25px 10px", md:"25px 120px"}}
       bg="orange.50"
       borderRadius="2xl"
       align="center"
       justify="center"
       gap="10"
+      flexDirection={{base:'column', md:'row'}}
     >
       <Image src={sellImg} alt="sell image" w="500px" />
 
       <Flex direction="column">
-        <Heading textTransform="uppercase" fontSize="27px" mb="7">
+        <Heading textTransform="uppercase"  mb="7" fontSize={{ base: "24px", md: "27px" }}>
           Do you have something <br /> to sell? Post your ad.
         </Heading>
         <Button
