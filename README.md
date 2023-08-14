@@ -1,10 +1,10 @@
 ### Admin User:
-Email: younusshamim.bd@gmail.com \n
-Password: 123456
+- Email: younusshamim.bd@gmail.com 
+- Password: 123456
 
 ### Normal User: 
-Email: jahin@gmail.com \n
-Passsword: 123456
+- Email: jahin@gmail.com
+- Passsword: 123456
 
 <hr/>
 
