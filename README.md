@@ -8,6 +8,18 @@
 
 <hr/>
 
+
+### Client
+- Client Code: https://github.com/younusshamim/electro-recyclr-client/
+- Client Live: electro-recyclr-client.vercel.app
+  
+### Server
+- Server Code: https://github.com/younusshamim/electro-recyclr-server
+- Server Live: electro-recyclr-server.vercel.app
+
+
+<hr/>
+
 ElectroRecyclr is a platform where users can buy and sell used products.
 There are separate user management roles: admin, regular user, and
 verified user. ElectroRecyclr is one of my best project.
