@@ -39,7 +39,7 @@ const Products = () => {
       ) : (
         <>
           <Grid
-            templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
+            templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(4, 1fr)" }}
             columnGap="4"
             rowGap={{ base: 6, md: 8 }}
             pt="10"
