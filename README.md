@@ -20,7 +20,7 @@
 
 ### Project Name: ElectroRecyclr
 
-### Slogan: Reduce, Reuse, and Revive with ElectroRecyclr. Your One-Stop Shop for Quality Second-Hand Electronics!
+##### Slogan: Reduce, Reuse, and Revive with ElectroRecyclr. Your One-Stop Shop for Quality Second-Hand Electronics!
 
 ### Project Overview:
 ElectroRecyclr is a platform for buying and selling used electronics.
