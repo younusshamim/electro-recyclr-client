@@ -18,61 +18,48 @@
 
 <hr/>
 
-Project Name: ElectroRecyclr
+### Project Name: ElectroRecyclr
 
-Slogan: Reduce, Reuse, and Revive with ElectroRecyclr. Your One-Stop Shop for Quality Second-Hand Electronics!
+### Slogan: Reduce, Reuse, and Revive with ElectroRecyclr. Your One-Stop Shop for Quality Second-Hand Electronics!
 
-Project Overview:
+### Project Overview:
 ElectroRecyclr is a platform for buying and selling used electronics.
 
-Technology Stack:
+### Technology Stack:
+- React JS
+- Node JS
+- MongoDB
+- Chakra UI
+- Firebase Authentication
+- JWT Token
+- Context API
+- React Query
+- react-hook-form
+  
+### Features:
+- Homepage: Displays recently uploaded products and electronics categories.
+- Category Browsing: View category-specific items with pagination.
+- Search: Search products by district or via search field.
+- Product Details
+- Booking: Users can book products by submitting a booking form.
+- User Registration/Login:
+- Register with username, email, mobile, password or via Google account.
+- Login required for booking or selling products.
 
-React JS
-Node JS
-MongoDB
-Chakra UI
-Firebase Authentication
-JWT Token
-Context API
-React Query
-react-hook-form
-Features:
+### User Roles:
 
-Homepage: Displays recently uploaded products and electronics categories.
-Category Browsing: View category-specific items with pagination.
-Search: Search products by district or via search field.
-Product Details:
-Product name
-Product images
-Seller name
-Seller verification status
-Seller mobile number
-Product price
-Year of purchase
-Posted time
-Original price
-Selling price
-Product description
-Booking: Users can book products by submitting a booking form.
-User Registration/Login:
-Register with username, email, mobile, password or via Google account.
-Login required for booking or selling products.
-User Roles:
+#### User:
+- Book products and view their booking status.
+- Sell products by adding product details, category, price, address, district, purchase year, condition, description, and images.
+- View and manage their sell posts and bookings.
+- Update product status (available/sold out).
+- Update profile information.
 
-User:
+#### Verified User:
+- All functionalities of a normal user.
+- Verified status indicated by admin, making them trusted.
 
-Book products and view their booking status.
-Sell products by adding product details, category, price, address, district, purchase year, condition, description, and images.
-View and manage their sell posts and bookings.
-Update product status (available/sold out).
-Update profile information.
-Verified User:
-
-All functionalities of a normal user.
-Verified status indicated by admin, making them trusted.
-Admin:
-
-All functionalities of a normal and verified user.
-Add new categories.
-Manage user roles.
-
+#### Admin:
+- All functionalities of a normal and verified user.
+- Add new categories.
+- Manage user roles.
